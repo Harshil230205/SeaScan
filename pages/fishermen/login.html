@@ -42,7 +42,7 @@
             </div>
             
             <div class="card max-w-md mx-auto">
-                <form onsubmit="showFishermanDashboard(event)">
+                <form id="loginForm" onsubmit="showFishermanDashboard(event)">
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-medium mb-2" for="phoneNumber">Phone Number</label>
                         <input class="input-field" id="phoneNumber" placeholder="Enter your phone number" required type="tel"/>
@@ -60,6 +60,15 @@
                         <button class="btn-primary w-full" type="submit">Login</button>
                     </div>
                 </form>
+                
+                <script>
+                    // Add direct event listener to ensure form submission works
+                    document.getElementById('loginForm').addEventListener('submit', function(event) {
+                        event.preventDefault();
+                        window.location.href = 'dashboard.html';
+                        localStorage.setItem('fishermanLoggedIn', 'true');
+                    });
+                </script>
                 
                 <div class="mt-4 text-center">
                     <p class="text-gray-600 text-sm">Don't have an account? <a class="text-primary font-medium" href="register.html">Register</a></p>
