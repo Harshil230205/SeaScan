@@ -99,11 +99,18 @@
     </style>
 </head>
 <body class="bg-white font-display flex flex-col min-h-screen">
+    <script>
+                    
+                    
+                    function redirectToProfile() {
+                        window.location.href = './profile.html';
+                    }
+                </script>
     <header class="bg-white px-4 py-4 flex justify-between items-center">
         <h1 class="text-xl font-bold text-gray-800">Fisherman Dashboard</h1>
         <div class="flex items-center">
             <div class="relative">
-                <button class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center">
+                <button onclick="redirectToProfile()" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
                     </svg>

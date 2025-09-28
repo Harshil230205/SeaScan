@@ -9,6 +9,18 @@ function showFishermanRegister() {
     document.getElementById('fishermanRegisterPage').classList.add('active');
 }
 
+function registerFisherman(event) {
+    if (event) {
+        event.preventDefault();
+    }
+    
+    // Set fisherman as logged in
+    localStorage.setItem('fishermanLoggedIn', 'true');
+    
+    // Redirect to fishermen dashboard
+    window.location.href = 'dashboard.html';
+}
+
 function showFishermanLogin(event) {
     if (event) {
         event.preventDefault();
