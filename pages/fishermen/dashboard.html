@@ -112,6 +112,16 @@
         </div>
     </header>
 
+    <!-- Toggle buttons for Dashboard and Today's Captures -->
+    <div class="flex border-b border-gray-200 mb-2">
+        <button id="dashboardToggle" class="flex-1 py-3 font-medium text-primary border-b-2 border-primary">
+            Dashboard
+        </button>
+        <button id="capturesToggle" class="flex-1 py-3 font-medium text-gray-500">
+            Today's Captures
+        </button>
+    </div>
+
     <main class="flex-grow px-4 py-4">
         <!-- Welcome Card -->
         <div class="card">
@@ -352,6 +362,115 @@
 
     <script src="../../js/main.js"></script>
     <script src="../../js/fishermen.js"></script>
+    
+    <script>
+        // Toggle functionality between Dashboard and Today's Captures
+        const dashboardToggle = document.getElementById('dashboardToggle');
+        const capturesToggle = document.getElementById('capturesToggle');
+        const dashboardContent = document.querySelectorAll('.card:not(#todaysCapturesSection)');
+        const capturesContent = document.getElementById('todaysCapturesSection');
+        
+        // Initialize - Show dashboard by default
+        if (capturesContent) {
+            capturesContent.style.display = 'none';
+        }
+        
+        // Dashboard toggle click handler
+        dashboardToggle.addEventListener('click', function() {
+            // Update toggle button styles
+            dashboardToggle.classList.add('text-primary', 'border-b-2', 'border-primary');
+            dashboardToggle.classList.remove('text-gray-500');
+            capturesToggle.classList.add('text-gray-500');
+            capturesToggle.classList.remove('text-primary', 'border-b-2', 'border-primary');
+            
+            // Show dashboard content, hide captures content
+            dashboardContent.forEach(card => {
+                card.style.display = 'block';
+            });
+            if (capturesContent) {
+                capturesContent.style.display = 'none';
+            }
+        });
+        
+        // Today's Captures toggle click handler
+        capturesToggle.addEventListener('click', function() {
+            // Update toggle button styles
+            capturesToggle.classList.add('text-primary', 'border-b-2', 'border-primary');
+            capturesToggle.classList.remove('text-gray-500');
+            dashboardToggle.classList.add('text-gray-500');
+            dashboardToggle.classList.remove('text-primary', 'border-b-2', 'border-primary');
+            
+            // Hide dashboard content, show captures content
+            dashboardContent.forEach(card => {
+                card.style.display = 'none';
+            });
+            if (capturesContent) {
+                capturesContent.style.display = 'block';
+            } else {
+                // Create captures section if it doesn't exist
+                const capturesSection = document.createElement('div');
+                capturesSection.id = 'todaysCapturesSection';
+                capturesSection.className = 'card';
+                capturesSection.innerHTML = `
+                    <h2 class="text-lg font-semibold text-gray-800 mb-3">Today's Captures</h2>
+                    <div id="todaysCapturesList" class="space-y-3">
+                        <div class="text-center text-gray-500 py-4" id="noCapturesMessage">
+                            No captures recorded today
+                        </div>
+                    </div>
+                `;
+                document.querySelector('main').appendChild(capturesSection);
+            }
+            
+            // Load captures from localStorage
+            loadTodaysCatches();
+        });
+        
+        // Function to load today's catches from localStorage
+        function loadTodaysCatches() {
+            const todaysCatchesList = document.getElementById('todaysCapturesList');
+            const noCapturesMessage = document.getElementById('noCapturesMessage');
+            
+            // Get catches from localStorage
+            const todaysCatch = JSON.parse(localStorage.getItem('todaysCatch') || '[]');
+            
+            // Display catches or no catches message
+            if (todaysCatch.length > 0) {
+                noCapturesMessage.style.display = 'none';
+                
+                // Clear existing items
+                while (todaysCatchesList.firstChild) {
+                    todaysCatchesList.removeChild(todaysCatchesList.firstChild);
+                }
+                
+                // Add each catch to the list
+                todaysCatch.forEach(catchItem => {
+                    const catchElement = document.createElement('div');
+                    catchElement.className = 'flex items-center p-3 bg-gray-50 rounded-lg';
+                    catchElement.innerHTML = `
+                        <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center text-primary mr-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-gray-800 font-medium">${catchItem.species}</h3>
+                            <p class="text-gray-500 text-xs">${catchItem.freshness} • ${catchItem.weight}</p>
+                            <p class="text-gray-500 text-xs">Value: ${catchItem.value} • Accuracy: ${catchItem.accuracy}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-gray-800 font-medium">${new Date(catchItem.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                            <p class="text-gray-500 text-xs">Today</p>
+                        </div>
+                    `;
+                    todaysCatchesList.appendChild(catchElement);
+                });
+            } else {
+                noCapturesMessage.style.display = 'block';
+            }
+        }
+    </script>
     
     <!-- Navigation Bar -->
     <div class="nav-bar">

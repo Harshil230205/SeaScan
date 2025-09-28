@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Capture Fish - FishFinder</title>
+    <title>Capture Fish - Fish Inspector</title>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap" rel="stylesheet"/>
@@ -90,13 +90,99 @@
         .nav-item.active {
             color: #11b4d4;
         }
+        #video {
+            width: 100%;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        #canvas {
+            display: none;
+        }
+        .result-container {
+            display: none;
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        .accuracy-bar {
+            height: 0.5rem;
+            background-color: #e2e8f0;
+            border-radius: 0.25rem;
+            margin-top: 0.25rem;
+        }
+        .accuracy-fill {
+            height: 100%;
+            background-color: #11b4d4;
+            border-radius: 0.25rem;
+        }
     </style>
 </head>
 <body>
     <div class="page active" id="capturePage">
         <div class="capture-container">
             <div class="capture-header">
-                Capture Fish
+                Fish Scanner
+            </div>
+            
+            <div class="capture-content">
+                <!-- Camera View -->
+                <video id="video" autoplay playsinline></video>
+                <canvas id="canvas"></canvas>
+                
+                <!-- Capture Button -->
+                <button id="captureBtn" class="capture-btn">
+                    Capture Fish
+                </button>
+                
+                <!-- Results Container -->
+                <div id="resultContainer" class="result-container">
+                    <h3 class="font-bold text-lg mb-3">Fish Analysis Results</h3>
+                    
+                    <div class="result-item">
+                        <span>Species:</span>
+                        <span id="speciesResult">-</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span>Freshness:</span>
+                        <span id="freshnessResult">-</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span>Weight (est.):</span>
+                        <span id="weightResult">-</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span>Market Value:</span>
+                        <span id="valueResult">-</span>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">Accuracy</span>
+                            <span id="accuracyPercent" class="text-sm font-bold">0%</span>
+                        </div>
+                        <div class="accuracy-bar">
+                            <div id="accuracyFill" class="accuracy-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <button id="saveResultBtn" class="capture-btn mt-4">
+                        Save to Today's Catch
+                    </button>
+                </div>
             </div>
             
             <div class="capture-content">
@@ -181,6 +267,107 @@
             // Navigate to the camera capture page
             window.location.href = 'catch-photo.html';
         }
+        
+        // Camera access and capture functionality
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureBtn = document.getElementById('captureBtn');
+        const resultContainer = document.getElementById('resultContainer');
+        const saveResultBtn = document.getElementById('saveResultBtn');
+        
+        // Result elements
+        const speciesResult = document.getElementById('speciesResult');
+        const freshnessResult = document.getElementById('freshnessResult');
+        const weightResult = document.getElementById('weightResult');
+        const valueResult = document.getElementById('valueResult');
+        const accuracyPercent = document.getElementById('accuracyPercent');
+        const accuracyFill = document.getElementById('accuracyFill');
+        
+        // Fish species database (mock data)
+        const fishSpecies = [
+            { name: 'Pomfret', freshness: ['Fresh', 'Day old', 'Preserved'], avgWeight: '0.5-1.2 kg', value: '₹400-600/kg' },
+            { name: 'Mackerel', freshness: ['Fresh', 'Day old', 'Preserved'], avgWeight: '0.2-0.4 kg', value: '₹200-300/kg' },
+            { name: 'Tuna', freshness: ['Fresh', 'Day old', 'Preserved'], avgWeight: '2-10 kg', value: '₹300-500/kg' },
+            { name: 'Sardine', freshness: ['Fresh', 'Day old', 'Preserved'], avgWeight: '0.1-0.2 kg', value: '₹150-250/kg' },
+            { name: 'Hilsa', freshness: ['Fresh', 'Day old', 'Preserved'], avgWeight: '0.8-1.5 kg', value: '₹800-1200/kg' }
+        ];
+        
+        // Initialize camera
+        async function initCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' } 
+                });
+                video.srcObject = stream;
+            } catch (err) {
+                console.error('Error accessing camera:', err);
+                alert('Could not access camera. Please ensure camera permissions are granted.');
+            }
+        }
+        
+        // Capture image and analyze
+        captureBtn.addEventListener('click', function() {
+            // Draw video frame to canvas
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Simulate fish detection (in a real app, this would call an AI model)
+            detectFish();
+        });
+        
+        // Save result to today's catch
+        saveResultBtn.addEventListener('click', function() {
+            // Save the current result to today's catch
+            const catchData = {
+                species: speciesResult.textContent,
+                freshness: freshnessResult.textContent,
+                weight: weightResult.textContent,
+                value: valueResult.textContent,
+                accuracy: accuracyPercent.textContent,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Save to localStorage (in a real app, this would be sent to a server)
+            const todaysCatch = JSON.parse(localStorage.getItem('todaysCatch') || '[]');
+            todaysCatch.push(catchData);
+            localStorage.setItem('todaysCatch', JSON.stringify(todaysCatch));
+            
+            // Show confirmation and reset
+            alert('Fish data saved to Today\'s Catch!');
+            resultContainer.style.display = 'none';
+        });
+        
+        // Simulate fish detection (mock implementation)
+        function detectFish() {
+            // Simulate processing time
+            resultContainer.style.display = 'none';
+            setTimeout(() => {
+                // Randomly select a fish species
+                const randomIndex = Math.floor(Math.random() * fishSpecies.length);
+                const fish = fishSpecies[randomIndex];
+                
+                // Randomly select freshness
+                const freshnessIndex = Math.floor(Math.random() * fish.freshness.length);
+                
+                // Generate random accuracy between 75% and 98%
+                const accuracy = Math.floor(Math.random() * 23) + 75;
+                
+                // Update result display
+                speciesResult.textContent = fish.name;
+                freshnessResult.textContent = fish.freshness[freshnessIndex];
+                weightResult.textContent = fish.avgWeight;
+                valueResult.textContent = fish.value;
+                accuracyPercent.textContent = accuracy + '%';
+                accuracyFill.style.width = accuracy + '%';
+                
+                // Show results
+                resultContainer.style.display = 'block';
+            }, 1500);
+        }
+        
+        // Initialize on page load
+        window.addEventListener('load', initCamera);
     </script>
 </body>
 </html>
