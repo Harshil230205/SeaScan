@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>map</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11b4d4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-screen w-full flex-col justify-between">
+<div class="flex flex-col flex-1 min-h-0">
+<header class="flex items-center p-4 bg-background-light dark:bg-background-dark/80 backdrop-blur-sm z-10">
+<button class="text-slate-800 dark:text-white">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-lg font-bold text-slate-900 dark:text-white flex-1 text-center pr-6">Hotspots</h1>
+</header>
+<main class="flex-1 flex flex-col min-h-0">
+<div class="relative flex-1 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB9abw5NfUy8bbqPcuh55PStQeJU5shh2oJmacl3u737Oi0yV0H1f-fDRzFs-ih2jIozmaI6k96Uq801aYKEmyEAdpwtxhi_0oAPvPWxD2rhI2Er6eiAJaPzi5Fbq2pQwV5UeqS9K4xvwNyqo-7_gwGVNN_wTlfx4G8ELYEqff0I4m4ZHwsulztDuZZCXk1F_Wf5DHECi-8jCXpsy9r9Iesmugi5ULmYSxsiN8g8GWZ7BZq7mYrU5Ek6hI2q6vrVwIJvINNhb6lRPXE");'>
+<div class="absolute inset-0 flex flex-col justify-between p-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400">search</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-xl bg-background-light/90 dark:bg-background-dark/90 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 border-0 focus:ring-2 focus:ring-primary" placeholder="Search for hotspots" type="text"/>
+</div>
+<div class="flex flex-col items-end gap-3">
+<div class="flex flex-col bg-background-light/90 dark:bg-background-dark/90 rounded-xl shadow-lg">
+<button class="p-3 text-slate-800 dark:text-white hover:bg-primary/10 rounded-t-xl">
+<span class="material-symbols-outlined">add</span>
+</button>
+<hr class="border-slate-200 dark:border-slate-700"/>
+<button class="p-3 text-slate-800 dark:text-white hover:bg-primary/10 rounded-b-xl">
+<span class="material-symbols-outlined">remove</span>
+</button>
+</div>
+<button class="flex items-center justify-center size-12 bg-background-light/90 dark:bg-background-dark/90 rounded-xl shadow-lg text-slate-800 dark:text-white">
+<span class="material-symbols-outlined">navigation</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<footer class="bg-background-light dark:bg-background-dark/80 backdrop-blur-sm border-t border-slate-200 dark:border-slate-800 pb-4">
+<nav class="flex justify-around items-center pt-2">
+<a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-xs font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-xs font-medium">History</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary dark:text-primary" href="#">
+<div class="bg-primary/10 dark:bg-primary/20 p-3 rounded-full">
+<span class="material-symbols-outlined !text-3xl">map</span>
+</div>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-xs font-medium">Profile</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-xs font-medium">Settings</span>
+</a>
+</nav>
+</footer>
+</div>
+
+</body></html>

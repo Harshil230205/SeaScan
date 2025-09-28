@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<title>Fishermen Profile photo</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Public+Sans:wght@400;500;700;900&amp;family=Noto+Sans:wght@400;500;700;900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#11b4d4",
+            "background-light": "#f6f8f8",
+            "background-dark": "#101f22",
+          },
+          fontFamily: {
+            "display": ["Public Sans"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="flex flex-col h-screen justify-between">
+<div class="flex-grow">
+<header class="flex items-center justify-between p-4 bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200">
+<button class="p-2">
+<span class="material-symbols-outlined">close</span>
+</button>
+<h1 class="text-lg font-bold">Profile Photo</h1>
+<div class="w-10"></div>
+</header>
+<main class="p-4">
+<div class="aspect-[3/4] rounded-xl overflow-hidden mb-6">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDo-poxnAWI_iJ0fEh5kr6NZ1hg7I9QaxkD0mE4zFmtvCFzdVDkg_iIzKsu2IIGY3qWDX2HphivGxZC2nebeLlC5djMslDDT-yXvV9I2eBYooPVZRPlv6fbtWVRak4D5ufkUy4VFco3-RWvJvE9VI6zTUulRA-xmH5CbF0Oh3Se5UwKPi6YbMfUbv3aaHGqgg-1ySKNE2WcVh7kSm91YpNmXVWPi-l6-HU9av4incBHGRCrGCX04JlEjJIPVpYJU6nwB5ZQl1Eq6vFv");'></div>
+</div>
+<div class="space-y-3">
+<button class="w-full h-12 px-4 text-center text-white bg-primary rounded-lg font-bold text-sm tracking-wide">Upload Photo</button>
+<button class="w-full h-12 px-4 text-center bg-primary/20 dark:bg-primary/30 text-slate-800 dark:text-slate-200 rounded-lg font-bold text-sm tracking-wide">Take Photo</button>
+<button class="w-full h-12 px-4 text-center bg-primary/20 dark:bg-primary/30 text-slate-800 dark:text-slate-200 rounded-lg font-bold text-sm tracking-wide">Remove Photo</button>
+</div>
+</main>
+</div>
+<footer class="bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-t border-slate-200 dark:border-slate-800 p-2">
+<div class="flex justify-around text-slate-500 dark:text-slate-400">
+<a class="flex flex-col items-center justify-center gap-1 w-full py-1" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-xs font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-full py-1" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-xs font-medium">History</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-full py-1" href="#">
+<span class="material-symbols-outlined">place</span>
+<span class="text-xs font-medium">Hotspots</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-full py-1 text-primary" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-xs font-medium">Profile</span>
+</a>
+</div>
+</footer>
+</div>
+
+</body></html>

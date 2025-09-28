@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Catch Photo</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11b4d4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101f22",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#192d32",
+                        "on-surface-light": "#101f22",
+                        "on-surface-dark": "#e0e4e5",
+                        "on-surface-variant-light": "#6a8a92",
+                        "on-surface-variant-dark": "#8fa8ae",
+                        "primary-container-light": "#e7f8fb",
+                        "primary-container-dark": "#153d45",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col justify-between overflow-x-hidden">
+<div class="flex flex-col">
+<header class="bg-surface-light dark:bg-surface-dark sticky top-0 z-10 flex items-center p-4">
+<button class="text-on-surface-light dark:text-on-surface-dark">
+<span class="material-symbols-outlined">close</span>
+</button>
+<h1 class="flex-1 text-center text-lg font-bold text-on-surface-light dark:text-on-surface-dark pr-6">New Catch</h1>
+</header>
+<main class="flex-grow p-4">
+<div class="mb-4 rounded-lg bg-primary-container-light dark:bg-primary-container-dark p-3 text-center text-on-surface-variant-light dark:text-on-surface-variant-dark">
+<p class="text-sm">Please ensure location services are enabled to capture accurate location data.</p>
+</div>
+<div class="grid grid-cols-2 grid-rows-2 gap-2 aspect-[4/3] rounded-xl overflow-hidden mb-4">
+<div class="col-span-2 row-span-1 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCBaiUyjqUlmqlp6irCfUBZ6zdhJQywgo50VPZ2OWN_19CCnN4c6ThF6n8c4QHkcJz-GotHlXggN0FiRq3FHw1snK4nRElwenNRBLiO6RS6gtraZb8TzziRuYALDAOomzTHNnYZ_q4M2lHI7w5Sq1s5IaSPNFwByDjFkRPlq_poHhCQI9k2eZLg9P4ZzIV5MrjnuXNH5s5wkh_pXsz7kojsC2-cwuVq3EkYheoKnw7wAdIw01AoLxRNt28JvJhBvsXW1GMvNmZPY875");'></div>
+<div class="col-span-1 row-span-1 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB-sOwjoTz6GrSvKF5F4sHsafEW4Yjspwf879I2rn5wfqF3SIoWCem9cmULlHM0rfDJTzXDecFSl_4UTAJyomKEqureQEUTuGUUHNOAihIvkaUm2sUSTAKE7GLDVtoscO97yFQ6nkhpBwWVcnQN3fBblsybkdeQB_VVNl7BopJIcFelcZ-Ma5XKYg1pnW3aKk20grkHcI2AATCAQh-4JrdOCYVEuDhHTF8UwpthChTJPBs-X2Tem1HLX1HgpwpBBpOGy8AKQGM1GFaU");'></div>
+<div class="col-span-1 row-span-1 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLi2jt73MCbxrPIkwGPCBQ44Q2wOcTWuh5_yAbqfIvLkFjmkQWxSKi7WFhkXdHT59z9Iisuha0fsrXgQLuO3ypW0S3ABw0HBU7i_9-XabiUSGfrvPJxmzD28HKOlMoXh-nCjUWhzRlQVgY21zLnz7YqDk9gNZ8wx2ueaL2013zyfjXB3gLK8ATWrsYRbe2km9FNpQAhuvPLpqrbgSoFW4uXINuW1pPTVvYtPdCdwQpw73mPvNIdK8dyleGARYrZGJaMX6T-RAJz8MI");'></div>
+</div>
+<div class="space-y-4">
+<div class="relative">
+<input class="w-full rounded-lg border-none bg-surface-light dark:bg-surface-dark p-4 pl-12 text-on-surface-light dark:text-on-surface-dark placeholder:text-on-surface-variant-light dark:placeholder:text-on-surface-variant-dark focus:ring-2 focus:ring-primary" placeholder="Location" type="text" value="14.5995° N, 120.9842° E"/>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant-light dark:text-on-surface-variant-dark">location_on</span>
+</div>
+<div class="relative">
+<input class="w-full rounded-lg border-none bg-surface-light dark:bg-surface-dark p-4 pl-12 text-on-surface-light dark:text-on-surface-dark placeholder:text-on-surface-variant-light dark:placeholder:text-on-surface-variant-dark focus:ring-2 focus:ring-primary" placeholder="Timestamp" type="text" value="June 15, 2024, 08:45 AM"/>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant-light dark:text-on-surface-variant-dark">schedule</span>
+</div>
+</div>
+<button class="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-primary/20 dark:bg-primary/30 h-14 px-5 text-base font-bold text-primary">
+<span class="material-symbols-outlined">photo_camera</span>
+<span class="truncate">Capture More</span>
+</button>
+</main>
+</div>
+<footer class="sticky bottom-0 bg-surface-light dark:bg-surface-dark border-t border-background-light dark:border-background-dark pb-safe">
+<div class="flex justify-around p-2">
+<a class="flex flex-col items-center gap-1 p-2 rounded-full text-primary" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-xs font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 rounded-full text-on-surface-variant-light dark:text-on-surface-variant-dark" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-xs font-medium">History</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 rounded-full text-on-surface-variant-light dark:text-on-surface-variant-dark" href="#">
+<span class="material-symbols-outlined">public</span>
+<span class="text-xs font-medium">Hotspots</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 rounded-full text-on-surface-variant-light dark:text-on-surface-variant-dark" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-xs font-medium">Profile</span>
+</a>
+</div>
+</footer>
+</div>
+
+</body></html>

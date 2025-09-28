@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Catch Details - FishFinder</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#11b4d4",
+                        secondary: "#e0f7fa",
+                    },
+                    fontFamily: {
+                        sans: ["Public Sans", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .details-container {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .details-header {
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            border-bottom: 1px solid #e2e8f0;
+            background-color: white;
+            position: relative;
+        }
+        .details-content {
+            flex: 1;
+            padding: 1rem;
+        }
+        .details-footer {
+            border-top: 1px solid #e2e8f0;
+            background-color: white;
+            padding: 0.5rem;
+        }
+        .action-btn {
+            background-color: #11b4d4;
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+        }
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .info-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        .nav-footer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid #e2e8f0;
+            background-color: white;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem;
+            color: #64748b;
+        }
+        .nav-item.active {
+            color: #11b4d4;
+        }
+    </style>
+</head>
+<body>
+    <div class="page active" id="catchDetailsPage">
+        <div class="details-container">
+            <div class="details-header">
+                <button class="close-btn" onclick="goBack()">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <span>Catch Details</span>
+            </div>
+            
+            <div class="details-content">
+                <div class="mb-4">
+                    <img id="catchImage" class="w-full h-64 object-cover rounded-lg" src="" alt="Fish catch">
+                </div>
+                
+                <div class="info-card">
+                    <h3 class="font-bold text-lg mb-2">Catch Information</h3>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-3">
+                        <div>
+                            <p class="text-sm text-gray-500">Species</p>
+                            <p id="fishSpecies" class="font-medium">Loading...</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Date & Time</p>
+                            <p id="catchDateTime" class="font-medium">Loading...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <p class="text-sm text-gray-500">Location</p>
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 text-primary mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <p id="catchLocation" class="font-medium">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <button class="action-btn bg-green-600" onclick="shareToMarket()">
+                        <div class="flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            Share to Market
+                        </div>
+                    </button>
+                    <button class="action-btn bg-blue-600" onclick="captureMore()">
+                        <div class="flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            Capture More
+                        </div>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="nav-footer">
+                <a href="dashboard.html" class="nav-item">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span class="text-xs">Home</span>
+                </a>
+                <a href="capture.html" class="nav-item active">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span class="text-xs">Capture</span>
+                </a>
+                <a href="market.html" class="nav-item">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    <span class="text-xs">Market</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span class="text-xs">Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/fishermen.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', loadCatchDetails);
+        
+        function loadCatchDetails() {
+            // Get catch ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const catchId = urlParams.get('id');
+            
+            if (!catchId) {
+                alert("Catch not found");
+                window.location.href = 'dashboard.html';
+                return;
+            }
+            
+            // Get catches from local storage
+            const catches = JSON.parse(localStorage.getItem('fishCatches') || '[]');
+            
+            // Find the specific catch
+            const catchData = catches[catchId];
+            
+            if (!catchData) {
+                alert("Catch not found");
+                window.location.href = 'dashboard.html';
+                return;
+            }
+            
+            // Display catch details
+            document.getElementById('catchImage').src = catchData.image;
+            document.getElementById('fishSpecies').textContent = catchData.species;
+            
+            // Format date and time
+            const catchDate = new Date(catchData.timestamp);
+            document.getElementById('catchDateTime').textContent = 
+                catchDate.toLocaleDateString() + ', ' + 
+                catchDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            // Display location
+            document.getElementById('catchLocation').textContent = 
+                `${catchData.latitude.toFixed(6)}°, ${catchData.longitude.toFixed(6)}°`;
+        }
+        
+        function shareToMarket() {
+            // In a real app, this would share the catch to the marketplace
+            alert("Your catch has been shared to the market!");
+            window.location.href = 'market.html';
+        }
+        
+        function captureMore() {
+            window.location.href = 'capture.html';
+        }
+        
+        function goBack() {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

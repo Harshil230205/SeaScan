@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Public+Sans:wght@400;500;700;900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#11b4d4",
+              "background-light": "#f6f8f8",
+              "background-dark": "#101f22",
+              "foreground-light": "#111718",
+              "foreground-dark": "#e8eeee",
+              "subtle-light": "#dbe4e6",
+              "subtle-dark": "#203a40",
+            },
+            fontFamily: {
+              display: ["Public Sans"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "0.75rem",
+              xl: "1rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>OTP verification</title>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-foreground-light dark:text-foreground-dark">
+<div class="flex h-full min-h-screen w-full flex-col">
+<header class="flex items-center p-4">
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-foreground-light dark:text-foreground-dark">
+<span class="material-symbols-outlined"> arrow_back </span>
+</button>
+<h1 class="flex-1 text-center text-lg font-bold">Verification</h1>
+<div class="w-10"></div>
+</header>
+<main class="flex flex-1 flex-col px-4 pt-4">
+<div class="flex flex-col gap-2">
+<h2 class="text-2xl font-bold">Enter the code</h2>
+<p class="text-foreground-light/80 dark:text-foreground-dark/80">We sent a verification code to your email. Please enter it below.</p>
+</div>
+<div class="py-8">
+<fieldset class="flex justify-center gap-2 sm:gap-4">
+<input class="h-14 w-12 rounded-lg border border-subtle-light bg-background-light text-center text-2xl font-bold focus:border-primary focus:ring-primary dark:border-subtle-dark dark:bg-background-dark dark:focus:border-primary" maxlength="1" type="text"/>
+<input class="h-14 w-12 rounded-lg border border-subtle-light bg-background-light text-center text-2xl font-bold focus:border-primary focus:ring-primary dark:border-subtle-dark dark:bg-background-dark dark:focus:border-primary" maxlength="1" type="text"/>
+<input class="h-14 w-12 rounded-lg border border-subtle-light bg-background-light text-center text-2xl font-bold focus:border-primary focus:ring-primary dark:border-subtle-dark dark:bg-background-dark dark:focus:border-primary" maxlength="1" type="text"/>
+<input class="h-14 w-12 rounded-lg border border-subtle-light bg-background-light text-center text-2xl font-bold focus:border-primary focus:ring-primary dark:border-subtle-dark dark:bg-background-dark dark:focus:border-primary" maxlength="1" type="text"/>
+<input class="h-14 w-12 rounded-lg border border-subtle-light bg-background-light text-center text-2xl font-bold focus:border-primary focus:ring-primary dark:border-subtle-dark dark:bg-background-dark dark:focus:border-primary" maxlength="1" type="text"/>
+<input class="h-14 w-12 rounded-lg border border-subtle-light bg-background-light text-center text-2xl font-bold focus:border-primary focus:ring-primary dark:border-subtle-dark dark:bg-background-dark dark:focus:border-primary" maxlength="1" type="text"/>
+</fieldset>
+</div>
+<div class="flex flex-col gap-4">
+<div class="relative">
+<input class="w-full rounded-lg border border-subtle-light bg-background-light p-4 pr-12 focus:border-primary focus:ring-primary dark:border-subtle-dark dark:bg-background-dark dark:placeholder:text-foreground-dark/60 dark:focus:border-primary" placeholder="New Password" type="password"/>
+<button class="absolute inset-y-0 right-0 flex items-center px-4 text-foreground-light/60 dark:text-foreground-dark/60">
+<span class="material-symbols-outlined"> visibility_off </span>
+</button>
+</div>
+<div class="relative">
+<input class="w-full rounded-lg border border-subtle-light bg-background-light p-4 pr-12 focus:border-primary focus:ring-primary dark:border-subtle-dark dark:bg-background-dark dark:placeholder:text-foreground-dark/60 dark:focus:border-primary" placeholder="Confirm Password" type="password"/>
+<button class="absolute inset-y-0 right-0 flex items-center px-4 text-foreground-light/60 dark:text-foreground-dark/60">
+<span class="material-symbols-outlined"> visibility_off </span>
+</button>
+</div>
+</div>
+<div class="mt-auto flex flex-col gap-4 py-6">
+<button class="w-full rounded-full bg-primary py-4 text-center font-bold text-background-dark">Verify</button>
+</div>
+</main>
+</div>
+
+</body></html>

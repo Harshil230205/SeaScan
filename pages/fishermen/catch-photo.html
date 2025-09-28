@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fisherman Catch Photo</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="page" id="fishermanCatchPhotoPage">
+        <div class="header">
+            <button class="close-btn" onclick="closeCatchPhoto()">&times;</button>
+            <h2>New Catch</h2>
+        </div>
+        
+        <div class="content">
+            <div class="info-message">
+                <p>Please ensure location services are enabled to capture accurate location data.</p>
+            </div>
+            
+            <div class="photo-container main-photo">
+                <img id="mainCatchPhoto" src="" alt="Main catch photo">
+            </div>
+            
+            <div class="photo-grid">
+                <div class="photo-container small-photo">
+                    <img id="catchPhoto1" src="" alt="Catch photo 1">
+                </div>
+                <div class="photo-container small-photo">
+                    <img id="catchPhoto2" src="" alt="Catch photo 2">
+                </div>
+            </div>
+            
+            <div class="location-info">
+                <div class="info-item">
+                    <span class="icon">📍</span>
+                    <span id="catchLocationCoords">14.5695° N, 120.9842° E</span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="icon">🕒</span>
+                    <span id="catchDateTime">June 15, 2024, 08:45 AM</span>
+                </div>
+            </div>
+            
+            <button class="primary-btn capture-btn" onclick="captureMore()">
+                <span class="icon">📷</span> Capture More
+            </button>
+        </div>
+        
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active" onclick="showHome()">
+                <span class="icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showHistory()">
+                <span class="icon">📜</span>
+                <span>History</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showHotspots()">
+                <span class="icon">🔍</span>
+                <span>Hotspots</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showProfile()">
+                <span class="icon">👤</span>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        function closeCatchPhoto() {
+            document.getElementById('fishermanCatchPhotoPage').classList.remove('active');
+            // Navigate back to previous page
+        }
+        
+        function captureMore() {
+            // Logic to capture more photos
+            console.log("Capturing more photos");
+        }
+        
+        function showHome() {
+            // Navigate to home
+        }
+        
+        function showHistory() {
+            // Navigate to history
+        }
+        
+        function showHotspots() {
+            // Navigate to hotspots
+        }
+        
+        function showProfile() {
+            // Navigate to profile
+        }
+    </script>
+</body>
+</html>

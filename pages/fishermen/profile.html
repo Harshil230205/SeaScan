@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fisherman Profile - SAMUDRA</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding-bottom: 70px;
+        }
+        
+        .header {
+            background-color: #0f2d40;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            margin-right: 1rem;
+        }
+        
+        .profile-header {
+            background-color: #0f2d40;
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #0f2d40;
+            border: 3px solid white;
+        }
+        
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0f2d40;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .profile-section {
+            background-color: white;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-header {
+            padding: 1rem;
+            background-color: #f5f5f5;
+            font-weight: bold;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .section-content {
+            padding: 1rem;
+        }
+        
+        .profile-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .profile-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-label {
+            color: #666;
+        }
+        
+        .item-value {
+            font-weight: 500;
+        }
+        
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.5rem 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+        
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+        }
+        
+        .nav-item.active {
+            color: #0f2d40;
+        }
+        
+        .logout-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="dashboard.html" class="back-button">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </a>
+            <h1 class="text-xl font-bold">Profile</h1>
+        </div>
+        
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <svg width="50" height="50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+            </div>
+            <h2 class="text-xl font-bold" id="fishermanName">Rajesh Patel</h2>
+            <p class="text-sm opacity-75">Fisherman ID: FIS-2024-0042</p>
+        </div>
+        
+        <div class="profile-stats">
+            <div class="stat-item">
+                <div class="stat-value">247</div>
+                <div class="stat-label">Total Catches</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">15</div>
+                <div class="stat-label">Species</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">1,250kg</div>
+                <div class="stat-label">Total Weight</div>
+            </div>
+        </div>
+        
+        <div class="px-4">
+            <div class="profile-section">
+                <div class="section-header">Personal Information</div>
+                <div class="section-content">
+                    <div class="profile-item">
+                        <div class="item-label">Full Name</div>
+                        <div class="item-value">Rajesh Patel</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="item-label">Phone</div>
+                        <div class="item-value">+91 98765 43210</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="item-label">Email</div>
+                        <div class="item-value">rajesh.p@example.com</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="item-label">Location</div>
+                        <div class="item-value">Veraval, Gujarat</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <div class="section-header">Boat Information</div>
+                <div class="section-content">
+                    <div class="profile-item">
+                        <div class="item-label">Boat Name</div>
+                        <div class="item-value">Samudra Jal</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="item-label">Registration No.</div>
+                        <div class="item-value">GJ-VRL-2245</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="item-label">Boat Type</div>
+                        <div class="item-value">Trawler</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="item-label">Capacity</div>
+                        <div class="item-value">500 kg</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <div class="section-header">Account Settings</div>
+                <div class="section-content">
+                    <div class="profile-item">
+                        <div class="item-label">Language</div>
+                        <div class="item-value">Gujarati</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="item-label">Notifications</div>
+                        <div class="item-value">Enabled</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="item-label">Data Sync</div>
+                        <div class="item-value">Auto</div>
+                    </div>
+                    
+                    <button class="logout-button" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <a href="dashboard.html" class="nav-item">
+            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="history.html" class="nav-item">
+            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>History</span>
+        </a>
+        <a href="hotspot-map.html" class="nav-item">
+            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <span>Hotspots</span>
+        </a>
+        <a href="profile.html" class="nav-item active">
+            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+            <span>Profile</span>
+        </a>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        function logout() {
+            // Clear user session
+            localStorage.removeItem('fishermanLoggedIn');
+            localStorage.removeItem('fishermanName');
+            
+            // Redirect to login page
+            window.location.href = 'login.html';
+        }
+        
+        // Load fisherman profile data
+        document.addEventListener('DOMContentLoaded', function() {
+            // In a real app, this would load from localStorage or an API
+            const fishermanName = localStorage.getItem('fishermanName') || 'Rajesh Patel';
+            document.getElementById('fishermanName').textContent = fishermanName;
+        });
+    </script>
+</body>
+</html>

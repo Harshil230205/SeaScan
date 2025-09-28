@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Analysis Results</title>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Public+Sans:wght@400;500;700;900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11b4d4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101f22",
+                        "foreground-light": "#111718",
+                        "foreground-dark": "#e8ebeb",
+                        "subtle-light": "#618389",
+                        "subtle-dark": "#a0b5b9",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2c2f",
+                        "border-light": "#e1e5e6",
+                        "border-dark": "#2b4045"
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                    fontSize: {
+                        'h1': ['2.25rem', {
+                            lineHeight: '2.5rem',
+                            fontWeight: '700'
+                        }],
+                        'h2': ['1.875rem', {
+                            lineHeight: '2.25rem',
+                            fontWeight: '700'
+                        }],
+                        'h3': ['1.5rem', {
+                            lineHeight: '2rem',
+                            fontWeight: '700'
+                        }],
+                        'h4': ['1.25rem', {
+                            lineHeight: '1.75rem',
+                            fontWeight: '700'
+                        }],
+                        'body-lg': ['1.125rem', {
+                            lineHeight: '1.75rem',
+                            fontWeight: '400'
+                        }],
+                        'body': ['1rem', {
+                            lineHeight: '1.5rem',
+                            fontWeight: '400'
+                        }],
+                        'body-sm': ['0.875rem', {
+                            lineHeight: '1.25rem',
+                            fontWeight: '400'
+                        }],
+                        'label': ['0.75rem', {
+                            lineHeight: '1rem',
+                            fontWeight: '500'
+                        }]
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        .icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-foreground-light dark:text-foreground-dark">
+<div class="flex flex-col min-h-screen">
+<header class="sticky top-0 bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-sm z-10 border-b border-border-light dark:border-border-dark">
+<div class="flex items-center justify-between p-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-primary/10 dark:hover:bg-primary/20">
+<svg class="icon" viewBox="0 0 256 256">
+<path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+</svg>
+</button>
+<h1 class="text-h4 font-bold text-center">Analysis Results</h1>
+<div class="w-8"></div> 
+</div>
+</header>
+<main class="flex-grow p-4 space-y-6">
+<section class="bg-surface-light dark:bg-surface-dark p-4 rounded-lg">
+<h2 class="text-h3 mb-4">Species Detected</h2>
+<div class="flex items-center gap-4">
+<img alt="Salmon" class="size-20 rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz-L9iiT8v9YoNVXbAXcQ7pJEM6Rs6QieIq9qvRHSzd0uWJsalgXvd6pLHc0EbLsynF-7z9V-Vq5Si8hBhh9-R5j5MvL3dmAJucvs_GxH9ec_l1_hu3KaxqBT-Htu4CESyqkiDas_OL1HvIblrDXOFUy6Rjs_6TrELTtQgmcbd0Rje9BYIKhjDjlnHGdlZzZ43-xv_5dgykwCP-9yyt8juMpLHapSq8kYSJZ396CBEHirRXGJ9jLlB51ZQcCzIe3EclgQMGXSEozpN"/>
+<div class="flex-1">
+<p class="text-body-lg font-bold">Salmon</p>
+<p class="text-body text-subtle-light dark:text-subtle-dark">Estimated Weight: 2.5 kg</p>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-lg flex flex-col items-start gap-2">
+<h3 class="text-body font-bold text-subtle-light dark:text-subtle-dark">Freshness</h3>
+<div class="flex items-center gap-2">
+<div class="flex items-center justify-center size-8 rounded-full bg-primary/20 text-primary">
+<svg class="icon" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path></svg>
+</div>
+<p class="text-body-lg font-bold">Excellent</p>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-lg flex flex-col items-start gap-2">
+<h3 class="text-body font-bold text-subtle-light dark:text-subtle-dark">Confidence</h3>
+<p class="text-body-lg font-bold">95%</p>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-lg">
+<div class="w-full bg-background-light dark:bg-background-dark rounded-full h-2.5">
+<div class="bg-primary h-2.5 rounded-full" style="width: 95%"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-4">
+<button class="flex items-center justify-center rounded-lg h-12 px-5 bg-primary/20 dark:bg-primary/30 text-primary text-base font-bold">
+<span>Discard</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-12 px-5 bg-primary text-white text-base font-bold">
+<span>Save</span>
+</button>
+</div>
+</main>
+<nav class="sticky bottom-0 bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-sm border-t border-border-light dark:border-border-dark">
+<div class="flex justify-around p-2">
+<a class="flex flex-col items-center justify-center gap-1 w-1/4 text-subtle-light dark:text-subtle-dark" href="#">
+<svg class="icon" viewBox="0 0 256 256"><path d="M218.83,103.77l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V115.55A16,16,0,0,0,218.83,103.77ZM208,208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48V115.55l.11-.1L128,40l79.9,75.43.11.1Z"></path></svg>
+<p class="text-label">Home</p>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-1/4 text-primary" href="#">
+<div class="relative">
+<svg class="icon" viewBox="0 0 256 256"><path d="M224,128A96,96,0,0,1,62.11,197.82a8,8,0,1,1,11-11.64A80,80,0,1,0,71.43,71.43C67.9,75,64.58,78.51,61.35,82L77.66,98.34A8,8,0,0,1,72,112H32a8,8,0,0,1-8-8V64a8,8,0,0,1,13.66-5.66L50,70.7c3.22-3.49,6.54-7,10.06-10.55A96,96,0,0,1,224,128ZM128,72a8,8,0,0,0-8,8v48a8,8,0,0,0,3.88,6.86l40,24a8,8,0,1,0,8.24-13.72L136,123.47V80A8,8,0,0,0,128,72Z"></path></svg>
+<div class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<p class="text-label font-bold">History</p>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-1/4 text-subtle-light dark:text-subtle-dark" href="#">
+<svg class="icon" viewBox="0 0 256 256"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"></path></svg>
+<p class="text-label">Hotspots</p>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-1/4 text-subtle-light dark:text-subtle-dark" href="#">
+<svg class="icon" viewBox="0 0 256 256"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg>
+<p class="text-label">Profile</p>
+</a>
+</div>
+</nav>
+</div>
+
+</body></html>

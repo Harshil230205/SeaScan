@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fisherman Catch Result</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="page" id="fishermanCatchResultPage">
+        <div class="header">
+            <button class="back-btn" onclick="goBack()">←</button>
+            <h2>Analysis Results</h2>
+        </div>
+        
+        <div class="content">
+            <div class="result-section">
+                <h3>Species Detected</h3>
+                
+                <div class="species-info">
+                    <img src="../../images/salmon.jpg" alt="Salmon" class="species-image">
+                    <div class="species-details">
+                        <h4>Salmon</h4>
+                        <p>Estimated Weight: 2.5 kg</p>
+                    </div>
+                </div>
+                
+                <div class="metrics">
+                    <div class="metric-row">
+                        <div class="metric-label">Freshness</div>
+                        <div class="metric-value">
+                            <span class="check-icon">✓</span> Excellent
+                        </div>
+                    </div>
+                    
+                    <div class="metric-row">
+                        <div class="metric-label">Confidence</div>
+                        <div class="metric-value">95%</div>
+                    </div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress" style="width: 95%;"></div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="secondary-btn" onclick="discardResult()">Discard</button>
+                    <button class="primary-btn" onclick="saveResult()">Save</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active" onclick="showHome()">
+                <span class="icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showHistory()">
+                <span class="icon">📜</span>
+                <span>History</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showHotspots()">
+                <span class="icon">🔍</span>
+                <span>Hotspots</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showProfile()">
+                <span class="icon">👤</span>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        function goBack() {
+            document.getElementById('fishermanCatchResultPage').classList.remove('active');
+            // Navigate back to previous page
+        }
+        
+        function discardResult() {
+            // Logic to discard result
+            console.log("Result discarded");
+            goBack();
+        }
+        
+        function saveResult() {
+            // Logic to save result
+            console.log("Result saved");
+            showHistory();
+        }
+        
+        function showHome() {
+            // Navigate to home
+        }
+        
+        function showHistory() {
+            // Navigate to history
+        }
+        
+        function showHotspots() {
+            // Navigate to hotspots
+        }
+        
+        function showProfile() {
+            // Navigate to profile
+        }
+    </script>
+</body>
+</html>

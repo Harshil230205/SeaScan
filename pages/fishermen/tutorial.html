@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Fisherman Tutorial - Fish Inspector App</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#11b4d4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        display: ["Public Sans"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px",
+                    },
+                },
+            },
+        };
+    </script>
+    <link href="../../css/styles.css" rel="stylesheet"/>
+</head>
+<body class="bg-background-light font-display flex flex-col min-h-screen">
+    <div class="page active" id="fishermanTutorialPage">
+        <div class="container mx-auto px-4 py-8">
+            <div class="card max-w-md mx-auto">
+                <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">How to Use the App</h1>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="bg-primary rounded-full w-8 h-8 flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">1</div>
+                        <div>
+                            <h2 class="font-semibold text-gray-800 mb-1">Scan Your Fish</h2>
+                            <p class="text-gray-600 text-sm">Tap the Scan button in the bottom navigation. Position your camera so the fish is clearly visible in the frame and tap to capture.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-primary rounded-full w-8 h-8 flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">2</div>
+                        <div>
+                            <h2 class="font-semibold text-gray-800 mb-1">View Results</h2>
+                            <p class="text-gray-600 text-sm">After scanning, you'll see the fish species, estimated weight, freshness score, and quality indicators. You can save these results to your catch history.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-primary rounded-full w-8 h-8 flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">3</div>
+                        <div>
+                            <h2 class="font-semibold text-gray-800 mb-1">Track Your Catch</h2>
+                            <p class="text-gray-600 text-sm">Visit the Dashboard to see your daily catch summary, history, and statistics. This helps you keep track of your fishing activities over time.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-primary rounded-full w-8 h-8 flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">4</div>
+                        <div>
+                            <h2 class="font-semibold text-gray-800 mb-1">Access Hotspot Maps</h2>
+                            <p class="text-gray-600 text-sm">Check the Hotspot Maps feature to find the best fishing locations based on recent catch data and seasonal patterns.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8">
+                    <button class="btn-primary w-full" onclick="showFishermanDashboard()">Go to Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/fishermen.js"></script>
+</body>
+</html>

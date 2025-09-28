@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Today's Catch</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#11b4d4",
+              "background-light": "#f6f8f8",
+              "background-dark": "#101f22",
+            },
+            fontFamily: {
+              display: ["Public Sans"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex flex-col h-screen justify-between">
+<div class="flex-grow overflow-y-auto">
+<header class="sticky top-0 z-10 bg-background-light dark:bg-background-dark/70 backdrop-blur-sm p-4">
+<div class="flex items-center">
+<button class="text-gray-800 dark:text-gray-200 p-2 -ml-2">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold text-center flex-1 text-gray-900 dark:text-white pr-8">Today's Catch</h1>
+</div>
+</header>
+<main class="p-4 space-y-6">
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-gray-100 dark:bg-gray-800/50 p-4 rounded-lg flex flex-col gap-1">
+<p class="text-sm text-gray-600 dark:text-gray-400">Total Catch</p>
+<p class="text-2xl font-bold text-gray-900 dark:text-white">120 kg</p>
+</div>
+<div class="bg-gray-100 dark:bg-gray-800/50 p-4 rounded-lg flex flex-col gap-1">
+<p class="text-sm text-gray-600 dark:text-gray-400">Species Count</p>
+<p class="text-2xl font-bold text-gray-900 dark:text-white">5</p>
+</div>
+</div>
+<div>
+<h2 class="text-lg font-bold mb-4 text-gray-900 dark:text-white">Catch Breakdown</h2>
+<div class="space-y-2">
+<div class="flex items-center gap-4 p-3 rounded-lg bg-gray-100 dark:bg-gray-800/50">
+<div class="w-12 h-12 rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDaqrk_hyaOlnq56kV0BuElLJB-FOFGuC11iLxF88pJBTWj3iklBGeqCVlc185fPsLKO9Ix4pT-22NJqgZCH5-Tb_XIUVyYVHUPAs_pdTyMKBesx6NjDq2NLCsC9oteORsEtO5v3yvMC227Oyth4gEj0q_tRvRwW7lka3HLHH2dYz8NQZIY277ud0dCgFjh8Nu__hAh_IK1nZ5wlmWcm0X8sgetLUcy-OWlFPm3tsv3ISokpgZIsUWHadwUWQpcUh6H5Y7X1z7baJ7V");'></div>
+<div class="flex-1">
+<p class="font-medium text-gray-900 dark:text-white">Tuna</p>
+<p class="text-sm text-gray-600 dark:text-gray-400">40 kg</p>
+</div>
+<div class="w-1/4 h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
+<div class="h-2 bg-primary rounded-full" style="width: 33.33%"></div>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-lg bg-gray-100 dark:bg-gray-800/50">
+<div class="w-12 h-12 rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDK_MXar6zKEOvZXuDUxLORizN0mffDgw3dt2mUNIBMH53Ldgj92eC8lG2f3HMg50wl6mpe-v3FkqxqsXiD1UjYm2epufrdhGM7jIk26Z6Xa8kv2PKTQHo2yDlOtXRbiiCycszaIKCYXW5szGt8qJ4t5Se4ZqSfpvECANzSnr8NXjt3ZuR-GpZoFqTttcBjeyUdlZFeKR_VhhjiQoP92VLMY_A5oowDOb2vx4ZX486_lfE2zIqMT6oUW1yGNWy2Pu8SBoSjj6gJDQYK");'></div>
+<div class="flex-1">
+<p class="font-medium text-gray-900 dark:text-white">Salmon</p>
+<p class="text-sm text-gray-600 dark:text-gray-400">30 kg</p>
+</div>
+<div class="w-1/4 h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
+<div class="h-2 bg-primary rounded-full" style="width: 25%"></div>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-lg bg-gray-100 dark:bg-gray-800/50">
+<div class="w-12 h-12 rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDazp9hiHv8u85HoQXqfeBY7XLSCMbmQGrQU8Mo40YJqif_JFcvZaC9F7L1cW5gNeHvBZKK5O9Xtk_0jjqH70uYBNIUqvZwSsJwcUyTAPtsKoyBtd8Eeb8iJi2TGPlbDWZ9g0wIrDeYQMkVLS3dl8ITv1pCmK35rX9TSIuGoLQsawuYKYMEyK2W3GW8TQ8u6_iZ6QH6NOWF4F8IagGooLRrWg6qwJl1yUDI0K7t0tsuLinWD9xEIncPP25pUHCHsvUmOA7J8DsakX1_");'></div>
+<div class="flex-1">
+<p class="font-medium text-gray-900 dark:text-white">Cod</p>
+<p class="text-sm text-gray-600 dark:text-gray-400">25 kg</p>
+</div>
+<div class="w-1/4 h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
+<div class="h-2 bg-primary rounded-full" style="width: 20.83%"></div>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-lg bg-gray-100 dark:bg-gray-800/50">
+<div class="w-12 h-12 rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCvAssQnbDvJ-NgYis8rs8dmG2qeemo8l-eLoO8K-SP_6KUsRBYRq0EgEKUGRQfmgPEB6Ce3ynV1Gz_whwAI7Nv1ARipHIQUnjguXcg9yctpHHDyYZquZMj9ztxKviD6t-rkwHFfyBbSrba1GNGpuuRr6jSGgpYGKUObMMohZoFAz4uF_f4iDPNOxRfEo2xsV-dFpwvE2iTY2OMAyfBKxBGDP5dyPMRd5G7g6MMqE0fEKqC7QyWkna05G5L-UfSJscD5_YrdJwW7LBv");'></div>
+<div class="flex-1">
+<p class="font-medium text-gray-900 dark:text-white">Mackerel</p>
+<p class="text-sm text-gray-600 dark:text-gray-400">15 kg</p>
+</div>
+<div class="w-1/4 h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
+<div class="h-2 bg-primary rounded-full" style="width: 12.5%"></div>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-lg bg-gray-100 dark:bg-gray-800/50">
+<div class="w-12 h-12 rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDQr0f7IaGGRtrVAW9b9bh63p6YriCQBIOJQOYmUtH1Da7UU6RMLcCRMlEQvc4HLhf511bKxjNNfZUwCbBgbshq8D_lXkzO-2WYffvqrfBsRW2LIHq2QnRrxcQNe5lQp7EFJ04kr5wD2SQY6ITrBDqgeMoUy2I4WNIeWLHJ_R4eL_Q7pUTqhf5lnZ3x9A2dsOoomKEAcdU8QzJX18TZwEa4AHoZQvCMbvnwSXJ9RbYGkqizooaHp_TCHNc0IP9pIINfahH7UXdh7Bpx");'></div>
+<div class="flex-1">
+<p class="font-medium text-gray-900 dark:text-white">Halibut</p>
+<p class="text-sm text-gray-600 dark:text-gray-400">10 kg</p>
+</div>
+<div class="w-1/4 h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
+<div class="h-2 bg-primary rounded-full" style="width: 8.33%"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<nav class="bg-background-light dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 px-4 pt-2 pb-4">
+<div class="flex justify-around items-center">
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-xs font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-500 dark:text-gray-400" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0">history</span>
+<span class="text-xs font-medium">History</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-500 dark:text-gray-400" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0">location_on</span>
+<span class="text-xs font-medium">Hotspots</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-500 dark:text-gray-400" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0">person</span>
+<span class="text-xs font-medium">Profile</span>
+</a>
+</div>
+</nav>
+</div>
+
+</body></html>

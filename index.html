@@ -31,644 +31,733 @@
             },
         };
     </script>
-    <style>
-        body {
-            min-height: max(884px, 100dvh);
-        }
-        .scanner-frame {
-            background: linear-gradient(45deg, transparent 10px, #11b4d4 10px, #11b4d4 12px, transparent 12px),
-                       linear-gradient(-45deg, transparent 10px, #11b4d4 10px, #11b4d4 12px, transparent 12px),
-                       linear-gradient(135deg, transparent 10px, #11b4d4 10px, #11b4d4 12px, transparent 12px),
-                       linear-gradient(-135deg, transparent 10px, #11b4d4 10px, #11b4d4 12px, transparent 12px);
-            background-size: 30px 30px;
-            background-position: top left, top right, bottom right, bottom left;
-            background-repeat: no-repeat;
-        }
-        .page {
-            display: none;
-        }
-        .page.active {
-            display: block;
-        }
-    </style>
+    <link href="css/styles.css" rel="stylesheet"/>
 </head>
-<body class="bg-background-light dark:bg-background-dark font-display">
+<body class="bg-background-light font-display flex flex-col min-h-screen">
+
+    <!-- Fisherman Catch Photo Page -->
+    <div class="page" id="fishermanCatchPhotoPage">
+        <div class="header">
+            <button class="close-btn" onclick="closeCatchPhoto()">&times;</button>
+            <h2>New Catch</h2>
+        </div>
+        
+        <div class="content">
+            <div class="info-message">
+                <p>Please ensure location services are enabled to capture accurate location data.</p>
+            </div>
+            
+            <div class="photo-container main-photo">
+                <img id="mainCatchPhoto" src="" alt="Main catch photo">
+            </div>
+            
+            <div class="photo-grid">
+                <div class="photo-container small-photo">
+                    <img id="catchPhoto1" src="" alt="Catch photo 1">
+                </div>
+                <div class="photo-container small-photo">
+                    <img id="catchPhoto2" src="" alt="Catch photo 2">
+                </div>
+            </div>
+            
+            <div class="location-info">
+                <div class="info-item">
+                    <span class="icon">📍</span>
+                    <span id="catchLocationCoords">14.5695° N, 120.9842° E</span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="icon">🕒</span>
+                    <span id="catchDateTime">June 15, 2024, 08:45 AM</span>
+                </div>
+            </div>
+            
+            <button class="primary-btn capture-btn" onclick="captureMore()">
+                <span class="icon">📷</span> Capture More
+            </button>
+        </div>
+        
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active" onclick="showHome()">
+                <span class="icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showHistory()">
+                <span class="icon">📜</span>
+                <span>History</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showHotspots()">
+                <span class="icon">🔍</span>
+                <span>Hotspots</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showProfile()">
+                <span class="icon">👤</span>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Fisherman Catch Result Page -->
+    <div class="page" id="fishermanCatchResultPage">
+        <div class="header">
+            <button class="back-btn" onclick="goBackFromResult()">←</button>
+            <h2>Analysis Results</h2>
+        </div>
+        
+        <div class="content">
+            <div class="result-section">
+                <h3>Species Detected</h3>
+                
+                <div class="species-info">
+                    <img src="images/salmon.jpg" alt="Salmon" class="species-image">
+                    <div class="species-details">
+                        <h4>Salmon</h4>
+                        <p>Estimated Weight: 2.5 kg</p>
+                    </div>
+                </div>
+                
+                <div class="metrics">
+                    <div class="metric-row">
+                        <div class="metric-label">Freshness</div>
+                        <div class="metric-value">
+                            <span class="check-icon">✓</span> Excellent
+                        </div>
+                    </div>
+                    
+                    <div class="metric-row">
+                        <div class="metric-label">Confidence</div>
+                        <div class="metric-value">95%</div>
+                    </div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress" style="width: 95%;"></div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="secondary-btn" onclick="discardResult()">Discard</button>
+                    <button class="primary-btn" onclick="saveResult()">Save</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active" onclick="showHome()">
+                <span class="icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showHistory()">
+                <span class="icon">📜</span>
+                <span>History</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showHotspots()">
+                <span class="icon">🔍</span>
+                <span>Hotspots</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showProfile()">
+                <span class="icon">👤</span>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Fisherman Hotspot Map Page -->
+    <div class="page" id="fishermanHotspotMapPage">
+        <div class="header">
+            <button class="back-btn" onclick="goBackFromHotspots()">←</button>
+            <h2>Hotspots</h2>
+        </div>
+        
+        <div class="content">
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Search for hotspots">
+            </div>
+            
+            <div class="map-container" id="hotspotMap">
+                <!-- Map will be loaded here -->
+            </div>
+            
+            <div class="map-controls">
+                <button class="map-control-btn" onclick="zoomIn()">+</button>
+                <button class="map-control-btn" onclick="zoomOut()">-</button>
+                <button class="map-control-btn" onclick="getCurrentLocation()">📍</button>
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <a href="#" class="nav-item" onclick="showHome()">
+                <span class="icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showHistory()">
+                <span class="icon">📜</span>
+                <span>History</span>
+            </a>
+            <a href="#" class="nav-item active" onclick="showHotspots()">
+                <span class="icon">🔍</span>
+                <span>Hotspots</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showProfile()">
+                <span class="icon">👤</span>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Fisherman History Page -->
+    <div class="page" id="fishermanHistoryPage">
+        <div class="header">
+            <button class="back-btn" onclick="goBackFromHistory()">←</button>
+            <h2>History</h2>
+        </div>
+        
+        <div class="content">
+            <div class="history-list">
+                <div class="history-item">
+                    <div class="history-image">
+                        <img src="images/fish1.jpg" alt="Catch of the Day">
+                    </div>
+                    <div class="history-details">
+                        <h4>Catch of the Day</h4>
+                        <p>Lake Serenity · 2024-07-26 10:00 AM</p>
+                        <p class="weight">12 lbs</p>
+                    </div>
+                </div>
+                
+                <div class="history-item">
+                    <div class="history-image">
+                        <img src="images/fish2.jpg" alt="Successful Fishing Trip">
+                    </div>
+                    <div class="history-details">
+                        <h4>Successful Fishing Trip</h4>
+                        <p>River Bend · 2024-07-25 09:00 AM</p>
+                        <p class="weight">8 lbs</p>
+                    </div>
+                </div>
+                
+                <div class="history-item">
+                    <div class="history-image">
+                        <img src="images/fish3.jpg" alt="Big Catch">
+                    </div>
+                    <div class="history-details">
+                        <h4>Big Catch</h4>
+                        <p>Ocean View · 2024-07-24 11:15 AM</p>
+                        <p class="weight">15 lbs</p>
+                    </div>
+                </div>
+                
+                <div class="history-item">
+                    <div class="history-image">
+                        <img src="images/fish4.jpg" alt="Morning Catch">
+                    </div>
+                    <div class="history-details">
+                        <h4>Morning Catch</h4>
+                        <p>Mountain Lake · 2024-07-23 06:45 AM</p>
+                        <p class="weight">10 lbs</p>
+                    </div>
+                </div>
+                
+                <div class="history-item">
+                    <div class="history-image">
+                        <img src="images/fish5.jpg" alt="Afternoon Catch">
+                    </div>
+                    <div class="history-details">
+                        <h4>Afternoon Catch</h4>
+                        <p>Sunset Bay · 2024-07-22 02:20 PM</p>
+                        <p class="weight">11 lbs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <a href="#" class="nav-item" onclick="showHome()">
+                <span class="icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item active" onclick="showHistory()">
+                <span class="icon">📜</span>
+                <span>History</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showHotspots()">
+                <span class="icon">🔍</span>
+                <span>Hotspots</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showProfile()">
+                <span class="icon">👤</span>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
     <!-- Welcome Page -->
-    <div id="welcomePage" class="page active relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden p-4">
-        <div class="w-full max-w-md rounded-xl bg-white dark:bg-slate-800 shadow-lg overflow-hidden">
-            <div class="relative h-64 w-full">
-                <img alt="Fishermen at sea" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAwq9EunbV5zDnIGf8aG6uPPL_aFfJSBEU9f1-eYC2hbJ2yShIQUzVtl0rZUAC_m6TpGPfUVjUTI4OGa60e8QnETdgCOFa3FrQMeW7MvpNKaZti5fzlYOt83xlo960Npv7jrvL0L_qh9qsksjnh-raVVNwxAs1Vb4FhTVbUMp5tVkWNYS-FLaVHKRosWlR69znJptvA2uoFoBJIgeT-MpTsVt1J_Rt_TyBpkKUnhELr8w1I3zs5lNgpqdj70xA3nQPwjRP_v3C0_WU"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+    <div class="page" id="welcomePage">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-black text-gray-800">Fish Inspector</h1>
+                <p class="text-gray-600">Scan, identify, and track your catch</p>
             </div>
-            <div class="p-8 text-center">
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Welcome, Inspector</h1>
-                <p class="mt-4 text-base text-gray-600 dark:text-gray-300">View active fishermen and scan fish to record your findings.</p>
-                <div class="mt-8">
-                    <button onclick="showTutorial()" class="w-full rounded-lg bg-primary py-3 text-base font-bold text-white shadow-md transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark">
-                        Continue
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tutorial Page -->
-    <div id="tutorialPage" class="page">
-        <div class="flex flex-col justify-between min-h-screen">
-            <div>
-                <header class="p-4 flex items-center bg-background-light dark:bg-background-dark">
-                    <button onclick="showWelcome()" class="text-gray-800 dark:text-gray-200">
-                        <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M224 128a8 8 0 0 1-8 8H59.31l58.35 58.34a8 8 0 0 1-11.32 11.32l-72-72a8 8 0 0 1 0-11.32l72-72a8 8 0 0 1 11.32 11.32L59.31 120H216a8 8 0 0 1 8 8Z"></path>
-                        </svg>
-                    </button>
-                    <h1 class="text-lg font-bold text-gray-900 dark:text-white flex-1 text-center pr-6">Fish Scan Tutorial</h1>
-                </header>
-                <div class="relative h-56 w-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB3uulSNYKJtm-usiSXBcyDuj-61bvdHpUgv9QBSQ7G0Qty8llxbKT1ARHrL2gQQK41tFkMxXqMBqlGysTZarWoeK0TA9Gy_f4oaB3fnVp28Yv4DcY0KzHFCVGSaFmZ31A0CIQIDgUooRw14IgveWFHBjRyW03k1zo6p6-0p8uUkXXYin6w11HpRIwIzqF1Ln7MHSl34B8zoG2Hwpkn4x3nCJbLG1qc83NEwTuo2NUB0Fw99vT_YUyU53luddW2CPkVGrtIYfb_upy5");'></div>
-                <div class="p-4">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Scan Like a Pro</h2>
-                    <p class="mt-2 text-gray-700 dark:text-gray-300">Learn how to get the best results when scanning fish for quality and freshness. Follow these tips to ensure accurate assessments.</p>
-                    <div class="mt-6">
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Optimal Scanning Conditions</h3>
-                        <div class="mt-4 space-y-4">
-                            <div class="flex items-start gap-4">
-                                <div class="flex-shrink-0 size-12 rounded-lg bg-primary/20 dark:bg-primary/30 flex items-center justify-center">
-                                    <svg class="text-primary" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M120 40V16a8 8 0 0 1 16 0V40a8 8 0 0 1-16 0Zm72 88a64 64 0 1 1-64-64A64.07 64.07 0 0 1 192 128Zm-16 0a48 48 0 1 0-48 48A48.05 48.05 0 0 0 176 128ZM58.34 69.66A8 8 0 0 0 69.66 58.34l-16-16A8 8 0 0 0 42.34 53.66Zm0 116.68-16 16a8 8 0 0 0 11.32 11.32l16-16a8 8 0 0 0-11.32-11.32ZM192 72a8 8 0 0 0 5.66-2.34l16-16a8 8 0 0 0-11.32-11.32l-16 16A8 8 0 0 0 192 72Zm5.66 114.34a8 8 0 0 0-11.32 11.32l16 16a8 8 0 0 0 11.32-11.32ZM48 128a8 8 0 0 0-8-8H16a8 8 0 0 0 0 16H40A8 8 0 0 0 48 128Zm80 80a8 8 0 0 0-8 8v24a8 8 0 0 0 16 0V216A8 8 0 0 0 128 208Zm112-88H216a8 8 0 0 0 0 16h24a8 8 0 0 0 0-16Z"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-900 dark:text-white">Lighting</p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">Use natural light or a well-lit area for clear scans.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-4">
-                                <div class="flex-shrink-0 size-12 rounded-lg bg-primary/20 dark:bg-primary/30 flex items-center justify-center">
-                                    <svg class="text-primary" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M208 56H180.28L166.65 35.56A8 8 0 0 0 160 32H96a8 8 0 0 0-6.65 3.56L75.71 56H48A24 24 0 0 0 24 80V192a24 24 0 0 0 24 24H208a24 24 0 0 0 24-24V80A24 24 0 0 0 208 56Zm8 136a8 8 0 0 1-8 8H48a8 8 0 0 1-8-8V80a8 8 0 0 1 8-8H80a8 8 0 0 0 6.66-3.56L100.28 48h55.43l13.63 20.44A8 8 0 0 0 176 72h32a8 8 0 0 1 8 8ZM128 88a44 44 0 1 0 44 44A44.05 44.05 0 0 0 128 88Zm0 72a28 28 0 1 1 28-28A28 28 0 0 1 128 160Z"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-900 dark:text-white">Angles</p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">Hold the fish steady and scan from multiple angles.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-4">
-                                <div class="flex-shrink-0 size-12 rounded-lg bg-primary/20 dark:bg-primary/30 flex items-center justify-center">
-                                    <svg class="text-primary" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M221.87 83.16A104.1 104.1 0 1 1 195.67 49l22.67-22.68a8 8 0 0 1 11.32 11.32l-96 96a8 8 0 0 1-11.32-11.32l27.72-27.72a40 40 0 1 0 17.87 31.09a8 8 0 1 1 16-.9a56 56 0 1 1-22.38-41.65L184.3 60.39a87.88 87.88 0 1 0 23.13 29.67a8 8 0 0 1 14.44-6.9Z"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-900 dark:text-white">Focus Areas</p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">Focus on key areas like the eyes, gills, and scales.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-6">
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Interpreting Results</h3>
-                        <div class="mt-4 space-y-4">
-                            <div class="flex items-start gap-4">
-                                <div class="flex-shrink-0 size-12 rounded-lg bg-primary/20 dark:bg-primary/30 flex items-center justify-center">
-                                    <svg class="text-primary" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69 218.34 66.34a8 8 0 0 1 11.32 11.32Z"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-900 dark:text-white">Freshness Score</p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">Check the overall freshness score and detailed analysis.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-4">
-                                <div class="flex-shrink-0 size-12 rounded-lg bg-primary/20 dark:bg-primary/30 flex items-center justify-center">
-                                    <svg class="text-primary" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M229.66 218.34l-50.07-50.06a88.11 88.11 0 1 0-11.31 11.31l50.06 50.07a8 8 0 0 0 11.32-11.32ZM40 112a72 72 0 1 1 72 72A72.08 72.08 0 0 1 40 112Z"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-900 dark:text-white">Comparison</p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">Compare scan results with your visual inspection.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="p-4 pb-6 bg-background-light dark:bg-background-dark">
-                <button onclick="showDashboard()" class="w-full h-12 px-5 rounded-lg bg-primary text-white font-bold text-base shadow-md">
-                    Start Scanning
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Dashboard Page -->
-    <div id="dashboardPage" class="page">
-        <div class="flex h-screen flex-col">
-            <header class="flex items-center justify-between p-4 bg-background-light dark:bg-background-dark shadow-sm">
-                <button class="p-2 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary">
-                    <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
-                    </svg>
-                </button>
-                <h1 class="text-xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
-                <div class="w-10 h-10"></div>
-            </header>
-            <main class="flex-1 overflow-y-auto p-4 space-y-6">
-                <section>
-                    <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Recent Scans</h2>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-4 p-3 rounded-lg bg-white dark:bg-slate-800/50 shadow-sm">
-                            <div class="flex items-center justify-center size-12 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary">
-                                <svg fill="currentColor" height="28" viewBox="0 0 256 256" width="28" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M168.06,75.94a12,12,0,1,1-12-12A12,12,0,0,1,168.06,75.94Zm39.87,81c-20.76,26.37-53.85,40.74-98.41,42.77l-22,51.42A8,8,0,0,1,80.13,256l-.51,0a8,8,0,0,1-7.19-5.78L57.62,198.37,5.8,183.53a8,8,0,0,1-1-15.05l51.43-22c2-44.57,16.41-77.66,42.79-98.41,43.21-34,104.91-22.83,116.84-20.25a16,16,0,0,1,12.26,12.26C230.76,52,241.94,113.76,207.93,157ZM161.6,172.61a52.12,52.12,0,0,1-33.42-44.79A52.1,52.1,0,0,1,83.4,94.41c-7,15.86-10.76,35.11-11.3,57.62a8,8,0,0,1-4.85,7.16L31.84,174.34l34.46,9.87a8,8,0,0,1,5.49,5.49l9.84,34.46,15.18-35.41A8,8,0,0,1,104,183.9C126.48,183.37,145.73,179.59,161.6,172.61ZM212.53,43.47c-10.7-2.32-66-12.39-103.57,17.18A80.9,80.9,0,0,0,96.13,73.32a36,36,0,0,0,39.36,38.47a8,8,0,0,1,8.72,8.72,36,36,0,0,0,38.49,39.36,80.64,80.64,0,0,0,12.65-12.81C224.92,109.49,214.85,54.18,212.53,43.47Z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-gray-900 dark:text-white">2024-07-24</p>
-                                <p class="text-sm text-slate-500 dark:text-slate-400">Cod, Fresh</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section>
-                    <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Trending Data</h2>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="flex flex-col gap-2 p-4 rounded-lg bg-white dark:bg-slate-800/50 shadow-sm">
-                            <p class="text-sm text-slate-500 dark:text-slate-400">Most Common Species</p>
-                            <p class="text-2xl font-bold text-primary">Tuna</p>
-                        </div>
-                        <div class="flex flex-col gap-2 p-4 rounded-lg bg-white dark:bg-slate-800/50 shadow-sm">
-                            <p class="text-sm text-slate-500 dark:text-slate-400">Average Freshness</p>
-                            <p class="text-2xl font-bold text-primary">95%</p>
-                        </div>
-                    </div>
-                </section>
-            </main>
-            <footer class="bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 p-2">
-                <nav class="flex justify-around">
-                    <button onclick="showFishermen()" class="flex flex-col items-center gap-1 p-2 rounded-lg w-20 text-slate-500 dark:text-slate-400 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary">
-                        <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"></path></svg>
-                        <span class="text-xs font-medium">Fishermen</span>
-                    </button>
-                    <button onclick="showScanner()" class="flex flex-col items-center gap-1 p-2 rounded-lg w-20 text-slate-500 dark:text-slate-400 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary">
-                        <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H80a8,8,0,0,0,6.66-3.56L100.28,48h55.43l13.63,20.44A8,8,0,0,0,176,72h32a8,8,0,0,1,8,8ZM128,88a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,88Zm0,72a28,28,0,1,1,28-28A28,28,0,0,1,128,160Z"></path></svg>
-                        <span class="text-xs font-medium">Scan</span>
-                    </button>
-                    <button class="flex flex-col items-center gap-1 p-2 rounded-lg w-20 bg-primary/10 dark:bg-primary/20 text-primary">
-                        <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM200,176a8,8,0,0,1,0,16H56a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v62.92l34.88-29.07a8,8,0,0,1,9.56-.51l43,28.69,43.41-36.18a8,8,0,0,1,10.24,12.3l-48,40a8,8,0,0,1-9.56.51l-43-28.69L64,155.75V176Z"></path></svg>
-                        <span class="text-xs font-medium">Dashboard</span>
-                    </button>
-                    <button onclick="showAbout()" class="flex flex-col items-center gap-1 p-2 rounded-lg w-20 text-slate-500 dark:text-slate-400 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary">
-                        <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"></path></svg>
-                        <span class="text-xs font-medium">About</span>
-                    </button>
-                </nav>
-            </footer>
-        </div>
-    </div>
-
-    <!-- Scanner Page -->
-    <div id="scannerPage" class="page">
-        <div class="flex flex-col min-h-screen">
-            <!-- Header -->
-            <header class="p-4 flex items-center bg-background-light dark:bg-background-dark">
-                <button onclick="showDashboard()" class="text-gray-800 dark:text-gray-200">
-                    <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M224 128a8 8 0 0 1-8 8H59.31l58.35 58.34a8 8 0 0 1-11.32 11.32l-72-72a8 8 0 0 1 0-11.32l72-72a8 8 0 0 1 11.32 11.32L59.31 120H216a8 8 0 0 1 8 8Z"></path>
-                    </svg>
-                </button>
-                <h1 class="text-lg font-bold text-gray-900 dark:text-white flex-1 text-center pr-6">Fish Scanner</h1>
-            </header>
-
-            <!-- Camera Section -->
-            <div class="flex-1 flex flex-col p-4">
-                <div class="relative flex-1 bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden">
-                    <!-- Camera View -->
-                    <video id="video" class="w-full h-full object-cover" autoplay muted playsinline style="display: none;"></video>
-                    <canvas id="canvas" class="w-full h-full object-cover" style="display: none;"></canvas>
-                    
-                    <!-- Placeholder when no camera -->
-                    <div id="placeholder" class="flex items-center justify-center h-full">
-                        <div class="text-center">
-                            <svg class="w-16 h-16 mx-auto mb-4 text-gray-400 dark:text-gray-600" fill="currentColor" viewBox="0 0 256 256">
-                                <path d="M208 56H180.28L166.65 35.56A8 8 0 0 0 160 32H96a8 8 0 0 0-6.65 3.56L75.71 56H48A24 24 0 0 0 24 80V192a24 24 0 0 0 24 24H208a24 24 0 0 0 24-24V80A24 24 0 0 0 208 56Zm8 136a8 8 0 0 1-8 8H48a8 8 0 0 1-8-8V80a8 8 0 0 1 8-8H80a8 8 0 0 0 6.66-3.56L100.28 48h55.43l13.63 20.44A8 8 0 0 0 176 72h32a8 8 0 0 1 8 8ZM128 88a44 44 0 1 0 44 44A44.05 44.05 0 0 0 128 88Zm0 72a28 28 0 1 1 28-28A28 28 0 0 1 128 160Z"></path>
-                            </svg>
-                            <p class="text-gray-600 dark:text-gray-400">Camera will appear here</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">Grant camera permission to start</p>
-                        </div>
-                    </div>
-
-                    <!-- Scanner Frame Overlay -->
-                    <div class="absolute inset-4 scanner-frame rounded-lg pointer-events-none"></div>
-                    
-                    <!-- Scanning Animation -->
-                    <div id="scanLine" class="absolute left-4 right-4 h-0.5 bg-primary opacity-75 transition-all duration-1000" style="top: 20%; display: none;">
-                        <div class="w-full h-full bg-gradient-to-r from-transparent via-primary to-transparent"></div>
-                    </div>
-                </div>
-
-                <!-- Controls -->
-                <div class="flex justify-center items-center mt-6 space-x-6">
-                    <button onclick="toggleFlash()" class="p-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 256 256">
-                            <path d="M160 32a8 8 0 0 0-8 8V72L110 32H80a8 8 0 0 0-6.31 3.07l-64 80A8 8 0 0 0 16 128a8 8 0 0 0 6.31 12.93l64 80A8 8 0 0 0 92.69 224L152 184v32a8 8 0 0 0 13.66 5.66l64-64a8 8 0 0 0 0-11.32l-64-64A8 8 0 0 0 160 32Z"></path>
-                        </svg>
-                    </button>
-                    
-                    <button onclick="captureImage()" class="p-4 rounded-full bg-primary text-white shadow-lg">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 256 256">
-                            <path d="M208 56H180.28L166.65 35.56A8 8 0 0 0 160 32H96a8 8 0 0 0-6.65 3.56L75.71 56H48A24 24 0 0 0 24 80V192a24 24 0 0 0 24 24H208a24 24 0 0 0 24-24V80A24 24 0 0 0 208 56ZM128 88a44 44 0 1 0 44 44A44.05 44.05 0 0 0 128 88Z"></path>
-                        </svg>
-                    </button>
-                    
-                    <button onclick="toggleCamera()" class="p-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 256 256">
-                            <path d="M227.31 80.85A16 16 0 0 0 216 72h-16L182.63 42.84A24 24 0 0 0 160.89 32H95.11a24 24 0 0 0-21.74 10.84L56 72H40A16 16 0 0 0 24 88V200a16 16 0 0 0 16 16H216a16 16 0 0 0 16-16V88A16 16 0 0 0 227.31 80.85ZM128 88a44 44 0 1 1-44 44A44.05 44.05 0 0 1 128 88Z"></path>
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Status -->
-                <div class="mt-4 text-center">
-                    <p id="status" class="text-sm text-gray-600 dark:text-gray-400">Position fish in the scanner frame</p>
-                </div>
-            </div>
-
-            <!-- Results Section -->
-            <div id="results" class="hidden p-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Scan Results</h3>
+            
+            <div class="card max-w-md mx-auto text-center">
+                <img alt="Fish Inspector Logo" class="w-32 h-32 mx-auto mb-6" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgY3g9IjY0IiBjeT0iNjQiIHI9IjY0IiBmaWxsPSIjMTFCNEQ0Ii8+CjxwYXRoIGQ9Ik04OC4zMzMgNDIuNjY3QzgzLjY2NyA0Mi42NjcgNzkuMzMzIDQ0LjY2NyA3Ni4zMzMgNDhDNzMuMzMzIDQ0LjY2NyA2OSA0Mi42NjcgNjQuMzMzIDQyLjY2N0M1NS4zMzMgNDIuNjY3IDQ4IDUwIDQ4IDU5QzQ4IDc0LjMzMyA3Ni4zMzMgOTAgNzYuMzMzIDkwQzc2LjMzMyA5MCAxMDQuNjY3IDc0LjMzMyAxMDQuNjY3IDU5QzEwNC42NjcgNTAgOTcuMzMzIDQyLjY2NyA4OC4zMzMgNDIuNjY3WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTM4LjY2NyA1OS42NjdDMzguNjY3IDU5LjY2NyAzMi42NjcgNjQgMjQgNjRDMTUuMzMzIDY0IDkuMzMzIDU5LjY2NyA5LjMzMyA1OS42NjdDOS4zMzMgNTkuNjY3IDE1LjMzMyA1NS4zMzMgMjQgNTUuMzMzQzMyLjY2NyA1NS4zMzMgMzguNjY3IDU5LjY2NyAzOC42NjcgNTkuNjY3WiIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iMjQiIGN5PSI1OS42NjciIHI9IjQiIGZpbGw9IiMxMUI0RDQiLz4KPC9zdmc+Cg=="/>
+                
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Welcome to Fish Inspector</h2>
+                <p class="text-gray-600 mb-8">The smart app that helps fishermen identify, analyze, and track their catch using AI technology.</p>
                 
                 <div class="space-y-4">
-                    <!-- Fish Type -->
-                    <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
-                                <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 256 256">
-                                    <path d="M168 76a12 12 0 1 1-12-12A12 12 0 0 1 168 76Zm64 52c0 46.75-25.75 87.6-64 109.54V256a8 8 0 0 1-16 0v-18.46c-20.37 11.67-44.06 18.46-69.34 18.46C37.79 256 0 218.21 0 173.34S37.79 90.66 82.66 90.66C90 90.66 97.15 91.7 104 93.65V88a8 8 0 0 1 16 0v18.46C158.25 84.4 184 43.6 184 24a8 8 0 0 1 16 0c0 20.37-11.67 44.06-18.46 69.34C224.3 98.85 232 116.66 232 128Z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-900 dark:text-white">Species</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400" id="fishType">Pomfret (Silver)</p>
-                            </div>
-                        </div>
-                        <span class="text-sm text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900 px-2 py-1 rounded">95% Match</span>
-                    </div>
-
-                    <!-- Weight -->
-                    <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
-                                <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 256 256">
-                                    <path d="M208 32H48A16 16 0 0 0 32 48V208a16 16 0 0 0 16 16H208a16 16 0 0 0 16-16V48A16 16 0 0 0 208 32ZM128 184a56 56 0 1 1 56-56A56.06 56.06 0 0 1 128 184Z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-900 dark:text-white">Estimated Weight</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400" id="fishWeight">850-950 grams</p>
-                            </div>
-                        </div>
-                        <span class="text-sm text-blue-600 dark:text-blue-400">±50g</span>
-                    </div>
-
-                    <!-- Freshness -->
-                    <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
-                                <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 256 256">
-                                    <path d="M229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69 218.34 66.34a8 8 0 0 1 11.32 11.32Z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-900 dark:text-white">Freshness Score</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400" id="freshness">Very Fresh (8.5/10)</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                            <span class="w-2 h-2 bg-green-500 rounded-full ml-1"></span>
-                            <span class="w-2 h-2 bg-green-500 rounded-full ml-1"></span>
-                            <span class="w-2 h-2 bg-green-500 rounded-full ml-1"></span>
-                            <span class="w-2 h-2 bg-gray-300 rounded-full ml-1"></span>
-                        </div>
-                    </div>
-
-                    <!-- Additional Details -->
-                    <div class="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <p class="font-medium text-gray-900 dark:text-white mb-2">Quality Indicators</p>
-                        <div class="grid grid-cols-2 gap-3 text-sm">
-                            <div>
-                                <span class="text-gray-600 dark:text-gray-400">Eyes:</span>
-                                <span class="text-green-600 dark:text-green-400 ml-1">Clear & Bright</span>
-                            </div>
-                            <div>
-                                <span class="text-gray-600 dark:text-gray-400">Gills:</span>
-                                <span class="text-green-600 dark:text-green-400 ml-1">Red & Clean</span>
-                            </div>
-                            <div>
-                                <span class="text-gray-600 dark:text-gray-400">Skin:</span>
-                                <span class="text-green-600 dark:text-green-400 ml-1">Firm & Shiny</span>
-                            </div>
-                            <div>
-                                <span class="text-gray-600 dark:text-gray-400">Smell:</span>
-                                <span class="text-green-600 dark:text-green-400 ml-1">Ocean Fresh</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="flex space-x-3 mt-6">
-                    <button onclick="saveResult()" class="flex-1 bg-primary text-white py-3 px-4 rounded-lg font-medium">
-                        Save Result
-                    </button>
-                    <button onclick="scanAgain()" class="flex-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-3 px-4 rounded-lg font-medium">
-                        Scan Again
-                    </button>
+                    <button class="btn-primary w-full" onclick="showTutorial()">Get Started</button>
+                    <button class="btn-outline w-full" onclick="showFishermen()">Fisherman Login</button>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <script>
-        let video, canvas, context;
-let isScanning = false;
-let stream = null;
- var currentCameraFacing = 'environment';
-
-        // Page navigation functions
-        function showWelcome() {
-            hideAllPages();
-            document.getElementById('welcomePage').classList.add('active');
-        }
-
-        function showTutorial() {
-            hideAllPages();
-            document.getElementById('tutorialPage').classList.add('active');
-        }
-
-        function showDashboard() {
-            hideAllPages();
-            document.getElementById('dashboardPage').classList.add('active');
-        }
-
-        function showScanner() {
-            hideAllPages();
-            document.getElementById('scannerPage').classList.add('active');
-            initCamera();
-        }
-
-        function showFishermen() {
-            alert('Fishermen page - Under development');
-        }
-
-        function showAbout() {
-            alert('About page - Under development');
-        }
-
-        function hideAllPages() {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => {
-                page.classList.remove('active');
-            });
-        }
-
-        // Initialize camera
-        async function initCamera() {
-            video = document.getElementById('video');
-            canvas = document.getElementById('canvas');
-            context = canvas.getContext('2d');
+    
+    <!-- Fisherman Login Page -->
+    <div class="page" id="fishermanLoginPage">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold text-gray-800">Fisherman Login</h1>
+                <p class="text-gray-600">Access your account</p>
+            </div>
             
-            // Reset canvas dimensions
-            canvas.width = 1280;
-            canvas.height = 720;
-
-            // Check if camera is already initialized
-            if (stream) {
-                video.style.display = 'block';
-                document.getElementById('placeholder').style.display = 'none';
-                updateStatus('Camera ready - Position fish in frame');
-                return;
-            }
-
-            try {
-                // First try to get the environment-facing camera (rear camera on mobile)
-                stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { 
-                        facingMode: { exact: 'environment' },
-                        width: { ideal: 1280 },
-                        height: { ideal: 720 }
-                    } 
-                }).catch(async () => {
-                    // If environment camera fails, try any available camera
-                    return await navigator.mediaDevices.getUserMedia({ 
-                        video: { 
-                            width: { ideal: 1280 },
-                            height: { ideal: 720 }
-                        } 
-                    });
-                });
-                
-                video.srcObject = stream;
-                video.style.display = 'block';
-                document.getElementById('placeholder').style.display = 'none';
-                
-                // Wait for video to be ready
-                await new Promise((resolve) => {
-                    video.onloadedmetadata = () => {
-                        resolve();
-                    };
-                });
-                
-                updateStatus('Camera ready - Position fish in frame');
-            } catch (err) {
-                console.error('Error accessing camera:', err);
-                updateStatus('Camera access denied - Please allow camera permission');
-                
-                // Show more detailed error to help user
-                const placeholder = document.getElementById('placeholder');
-                placeholder.innerHTML = `
-                    <div class="text-center">
-                        <svg class="w-16 h-16 mx-auto mb-4 text-red-500" fill="currentColor" viewBox="0 0 256 256">
-                            <path d="M208 56H180.28L166.65 35.56A8 8 0 0 0 160 32H96a8 8 0 0 0-6.65 3.56L75.71 56H48A24 24 0 0 0 24 80V192a24 24 0 0 0 24 24H208a24 24 0 0 0 24-24V80A24 24 0 0 0 208 56Zm8 136a8 8 0 0 1-8 8H48a8 8 0 0 1-8-8V80a8 8 0 0 1 8-8H80a8 8 0 0 0 6.66-3.56L100.28 48h55.43l13.63 20.44A8 8 0 0 0 176 72h32a8 8 0 0 1 8 8ZM128 88a44 44 0 1 0 44 44A44.05 44.05 0 0 0 128 88Zm0 72a28 28 0 1 1 28-28A28 28 0 0 1 128 160Z"></path>
-                        </svg>
-                        <p class="text-red-600 dark:text-red-400 font-bold">Camera access denied</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Please check your browser settings and allow camera access</p>
-                        <button onclick="initCamera()" class="mt-4 px-4 py-2 bg-primary text-white rounded-lg">Try Again</button>
+            <div class="card max-w-md mx-auto">
+                <form onsubmit="showFishermanDashboard(event)">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="phoneNumber">Phone Number</label>
+                        <input class="input-field" id="phoneNumber" placeholder="Enter your phone number" required type="tel"/>
                     </div>
-                `;
-            }
-        }
-
-        function updateStatus(message) {
-            const statusElement = document.getElementById('status');
-            if (statusElement) {
-                statusElement.textContent = message;
-            }
-        }
-
-        function captureImage() {
-            if (!stream) {
-                initCamera();
-                return;
-            }
-
-            if (isScanning) return;
-            isScanning = true;
-
-            // Show scanning animation
-            const scanLine = document.getElementById('scanLine');
-            scanLine.style.display = 'block';
-            scanLine.style.top = '10%';
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="password">Password</label>
+                        <input class="input-field" id="password" placeholder="Enter your password" required type="password"/>
+                    </div>
+                    
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center">
+                            <input class="mr-2" id="remember" type="checkbox"/>
+                            <label class="text-sm text-gray-600" for="remember">Remember me</label>
+                        </div>
+                        <a class="text-sm text-primary" href="#">Forgot Password?</a>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <button class="btn-primary w-full" type="submit">Login</button>
+                        <button class="btn-outline w-full" onclick="showFishermanRegister(event)" type="button">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Fisherman Register Page -->
+    <div class="page" id="fishermanRegisterPage">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold text-gray-800">Fisherman Register</h1>
+                <p class="text-gray-600">Create a new account</p>
+            </div>
             
-            updateStatus('Analyzing fish...');
-
-            // Animate scan line with smoother animation
-            // Force reflow to ensure animation works properly
-            void scanLine.offsetWidth;
-            setTimeout(() => {
-                scanLine.style.top = '80%';
-                scanLine.style.transition = 'top 1.5s ease-in-out';
-            }, 100);
-
-            // Capture image to canvas
-            canvas.width = video.videoWidth || 1280;
-            canvas.height = video.videoHeight || 720;
+            <div class="card max-w-md mx-auto">
+                <form onsubmit="showFishermanDashboard(event)">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="fullName">Full Name</label>
+                        <input class="input-field" id="fullName" placeholder="Enter your full name" required type="text"/>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="regPhoneNumber">Phone Number</label>
+                        <input class="input-field" id="regPhoneNumber" placeholder="Enter your phone number" required type="tel"/>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="regPassword">Password</label>
+                        <input class="input-field" id="regPassword" placeholder="Create a password" required type="password"/>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="confirmPassword">Confirm Password</label>
+                        <input class="input-field" id="confirmPassword" placeholder="Confirm your password" required type="password"/>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <button class="btn-primary w-full" type="submit">Register</button>
+                        <button class="btn-outline w-full" onclick="showFishermanLogin(event)" type="button">Already have an account? Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tutorial Page -->
+    <div class="page" id="tutorialPage">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold text-gray-800">How It Works</h1>
+                <p class="text-gray-600">Learn how to use Fish Inspector</p>
+            </div>
             
-            try {
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            <div class="card max-w-md mx-auto">
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="bg-primary rounded-full w-8 h-8 flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">1</div>
+                        <div>
+                            <h2 class="font-semibold text-gray-800 mb-1">Scan Your Fish</h2>
+                            <p class="text-gray-600 text-sm">Tap the Scan button and position your camera so the fish is clearly visible in the frame.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-primary rounded-full w-8 h-8 flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">2</div>
+                        <div>
+                            <h2 class="font-semibold text-gray-800 mb-1">Get Instant Results</h2>
+                            <p class="text-gray-600 text-sm">Our AI will identify the fish species, estimate weight, and provide a freshness score.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-primary rounded-full w-8 h-8 flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">3</div>
+                        <div>
+                            <h2 class="font-semibold text-gray-800 mb-1">Track Your Catch</h2>
+                            <p class="text-gray-600 text-sm">Save results to your dashboard to track your fishing history and patterns.</p>
+                        </div>
+                    </div>
+                </div>
                 
-                // Simulate AI analysis
-                setTimeout(() => {
-                    scanLine.style.display = 'none';
-                    scanLine.style.transition = '';
-                    showResults();
-                    isScanning = false;
-                    updateStatus('Scan complete');
-                }, 2000);
-            } catch (err) {
-                console.error('Error capturing image:', err);
-                scanLine.style.display = 'none';
-                scanLine.style.transition = '';
-                isScanning = false;
-                updateStatus('Failed to capture image');
-            }
-        }
-
-        function showResults() {
-            // Simulate AI detection with random variation
-            const fishTypes = [
-                'Pomfret (Silver)', 'Kingfish (Surmai)', 'Mackerel (Bangda)',
-                'Tuna', 'Red Snapper', 'Sea Bass', 'Hilsa'
-            ];
-            const weights = [
-                '650-750 grams', '850-950 grams', '1.2-1.4 kg',
-                '500-600 grams', '1.8-2.2 kg', '300-400 grams'
-            ];
-            const freshnessScores = [
-                'Very Fresh (9.2/10)', 'Fresh (8.5/10)', 'Good (7.8/10)',
-                'Very Fresh (9.0/10)', 'Excellent (9.5/10)'
-            ];
-
-            // Get captured image from canvas for display
-            const capturedImage = canvas.toDataURL('image/jpeg');
+                <div class="mt-8 space-y-4">
+                    <button class="btn-primary w-full" onclick="showScanner()">Try Scanning Now</button>
+                    <button class="btn-outline w-full" onclick="showDashboard()">Go to Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Dashboard Page -->
+    <div class="page" id="dashboardPage">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-xl font-bold text-gray-800">Dashboard</h1>
+                <button class="text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                </button>
+            </div>
             
-            // Display the captured image (optional enhancement)
-            canvas.style.display = 'block';
-            video.style.display = 'none';
+            <!-- Today's Summary -->
+            <div class="card mb-4">
+                <h2 class="text-lg font-semibold text-gray-800 mb-3">Today's Summary</h2>
+                <div class="grid grid-cols-3 gap-3 mb-2">
+                    <div class="bg-gray-50 p-3 rounded-lg text-center">
+                        <p class="text-gray-500 text-xs mb-1">Total Catch</p>
+                        <p class="text-gray-800 font-bold text-xl">0 kg</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-lg text-center">
+                        <p class="text-gray-500 text-xs mb-1">Species</p>
+                        <p class="text-gray-800 font-bold text-xl">0</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-lg text-center">
+                        <p class="text-gray-500 text-xs mb-1">Avg. Quality</p>
+                        <p class="text-gray-800 font-bold text-xl">-</p>
+                    </div>
+                </div>
+                <button class="text-primary text-sm font-medium flex items-center">
+                    View Details
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                </button>
+            </div>
             
-            // Update result fields with random data
-            document.getElementById('fishType').textContent = fishTypes[Math.floor(Math.random() * fishTypes.length)];
-            document.getElementById('fishWeight').textContent = weights[Math.floor(Math.random() * weights.length)];
-            document.getElementById('freshness').textContent = freshnessScores[Math.floor(Math.random() * freshnessScores.length)];
-
-            // Show results section
-            document.getElementById('results').classList.remove('hidden');
+            <!-- Recent Scans -->
+            <div class="card mb-4">
+                <h2 class="text-lg font-semibold text-gray-800 mb-3">Recent Scans</h2>
+                <div class="flex flex-col items-center justify-center py-6">
+                    <svg class="w-16 h-16 text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                    <p class="text-gray-500 text-center">No scans yet. Tap the Scan button to get started.</p>
+                </div>
+                <button class="btn-primary w-full" onclick="showScanner()">Scan Fish Now</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Fisherman Dashboard Page -->
+    <div class="page" id="fishermanDashboardPage">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-xl font-bold text-gray-800">Fisherman Dashboard</h1>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                    </div>
+                    <span class="text-gray-700 font-medium">Fisherman</span>
+                </div>
+            </div>
             
-            // Scroll to results
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function saveResult() {
-            updateStatus('Result saved successfully');
-            setTimeout(() => {
-                updateStatus('Ready for next scan');
-            }, 2000);
-        }
-
-        function scanAgain() {  queueMicrotask
-            document.getElementById('results').classList.add('hidden');
-            updateStatus('Position fish in the scanner frame');
-        }
-
-        function toggleFlash() {
-            if (!stream) {
-                updateStatus('Camera not initialized');
-                return;
-            }
+            <!-- Welcome Card -->
+            <div class="card mb-4">
+                <h2 class="text-lg font-semibold text-gray-800 mb-3">Welcome to Fish Inspector</h2>
+                <p class="text-gray-600 mb-4">Hello! We're glad you're here. Fish Inspector helps you identify, analyze, and track your catch using AI technology.</p>
+                <button class="btn-primary w-full" onclick="showFishermanTutorial()">View Tutorial</button>
+            </div>
             
-            const track = stream.getVideoTracks()[0];
-            const capabilities = track.getCapabilities();
+            <!-- Tutorial Card -->
+            <div class="card mb-4">
+                <h2 class="text-lg font-semibold text-gray-800 mb-3">How to Use Fish Inspector</h2>
+                <div class="space-y-3 mb-4">
+                    <div class="flex items-start">
+                        <div class="bg-primary rounded-full w-6 h-6 flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">1</div>
+                        <p class="text-gray-600 text-sm">Scan your fish using the camera</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary rounded-full w-6 h-6 flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">2</div>
+                        <p class="text-gray-600 text-sm">Get instant identification and quality analysis</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary rounded-full w-6 h-6 flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">3</div>
+                        <p class="text-gray-600 text-sm">Save and track your catch history</p>
+                    </div>
+                </div>
+                <button class="btn-primary w-full" onclick="showScanner()">Start Scanning</button>
+            </div>
             
-            // Check if torch is supported
-            if (capabilities.torch) {
-                const currentSettings = track.getSettings();
-                const torchOn = !currentSettings.torch;
+            <!-- Permissions Card -->
+            <div class="card mb-4">
+                <h2 class="text-lg font-semibold text-gray-800 mb-3">App Permissions</h2>
+                <p class="text-gray-600 mb-4">Fish Inspector needs access to your camera and location to provide the best experience.</p>
+                <div class="space-y-3 mb-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                            </svg>
+                            <span class="text-gray-700">Camera Access</span>
+                        </div>
+                        <button class="bg-primary text-white px-3 py-1 rounded-lg text-sm">Allow</button>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                            </svg>
+                            <span class="text-gray-700">Location Access</span>
+                        </div>
+                        <button class="bg-primary text-white px-3 py-1 rounded-lg text-sm">Allow</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scanner Page -->
+    <div class="page" id="scannerPage">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-xl font-bold text-gray-800">Scan Fish</h1>
+                <div class="flex space-x-2">
+                    <button class="bg-gray-200 p-2 rounded-lg" id="flashButton" onclick="toggleFlash()">
+                        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                    </button>
+                    <button class="bg-gray-200 p-2 rounded-lg" id="cameraButton" onclick="toggleCamera()">
+                        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Camera View -->
+            <div class="relative mb-4">
+                <div class="aspect-w-4 aspect-h-3 bg-gray-900 rounded-xl overflow-hidden">
+                    <div class="scanner-frame absolute inset-0 pointer-events-none"></div>
+                    
+                    <!-- Camera Placeholder (in real app, this would be a camera feed) -->
+                    <div class="flex items-center justify-center h-full bg-gray-800" id="scannerPlaceholder">
+                        <div class="text-center p-4">
+                            <svg class="w-16 h-16 text-gray-500 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                            </svg>
+                            <p class="text-gray-300">Camera preview would appear here</p>
+                            <p class="text-gray-400 text-sm mt-1">Position fish in the frame and tap to capture</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Scan Results (initially hidden) -->
+                    <div class="hidden bg-white p-4 h-full" id="scanResults">
+                        <div class="flex flex-col h-full">
+                            <div class="flex-1">
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <h2 class="text-lg font-semibold text-gray-800">Red Snapper</h2>
+                                        <p class="text-gray-500 text-sm">Lutjanus campechanus</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-gray-800 font-medium">Est. Weight</p>
+                                        <p class="text-gray-600">850-950 grams</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <p class="text-gray-700 font-medium">Freshness Score</p>
+                                        <p class="text-gray-700 font-medium">95%</p>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-primary h-2 rounded-full" style="width: 95%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <p class="text-gray-700 font-medium mb-2">Quality Indicators</p>
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <div class="bg-gray-50 p-2 rounded-lg text-center">
+                                            <div class="flex justify-center mb-1">
+                                                <span class="quality-indicator excellent"></span>
+                                            </div>
+                                            <p class="text-gray-600 text-xs">Eyes: Clear & Bright</p>
+                                        </div>
+                                        <div class="bg-gray-50 p-2 rounded-lg text-center">
+                                            <div class="flex justify-center mb-1">
+                                                <span class="quality-indicator excellent"></span>
+                                            </div>
+                                            <p class="text-gray-600 text-xs">Gills: Red & Clean</p>
+                                        </div>
+                                        <div class="bg-gray-50 p-2 rounded-lg text-center">
+                                            <div class="flex justify-center mb-1">
+                                                <span class="quality-indicator excellent"></span>
+                                            </div>
+                                            <p class="text-gray-600 text-xs">Skin: Firm & Shiny</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                                    <p class="text-gray-700 font-medium mb-1">Smell</p>
+                                    <p class="text-gray-600 text-sm">Ocean Fresh</p>
+                                </div>
+                                
+                                <div class="bg-green-50 p-3 rounded-lg mb-4">
+                                    <p class="text-green-700 font-medium">Very Fresh (9.5/10)</p>
+                                    <p class="text-green-600 text-sm">This fish is in excellent condition and very fresh.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex space-x-2">
+                                <button class="btn-outline flex-1" onclick="scanAgain()">Scan Again</button>
+                                <button class="btn-primary flex-1" onclick="saveResult()">Save Result</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-gray-500 text-sm mb-2">Tap to capture or use the button below</p>
+                <button class="btn-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto" id="captureButton" onclick="capturePhoto()">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- About Page -->
+    <div class="page" id="aboutPage">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold text-gray-800">About Fish Inspector</h1>
+                <p class="text-gray-600">Learn more about our app</p>
+            </div>
+            
+            <div class="card max-w-md mx-auto">
+                <img alt="Fish Inspector Logo" class="w-24 h-24 mx-auto mb-6" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgY3g9IjY0IiBjeT0iNjQiIHI9IjY0IiBmaWxsPSIjMTFCNEQ0Ii8+CjxwYXRoIGQ9Ik04OC4zMzMgNDIuNjY3QzgzLjY2NyA0Mi42NjcgNzkuMzMzIDQ0LjY2NyA3Ni4zMzMgNDhDNzMuMzMzIDQ0LjY2NyA2OSA0Mi42NjcgNjQuMzMzIDQyLjY2N0M1NS4zMzMgNDIuNjY3IDQ4IDUwIDQ4IDU5QzQ4IDc0LjMzMyA3Ni4zMzMgOTAgNzYuMzMzIDkwQzc2LjMzMyA5MCAxMDQuNjY3IDc0LjMzMyAxMDQuNjY3IDU5QzEwNC42NjcgNTAgOTcuMzMzIDQyLjY2NyA4OC4zMzMgNDIuNjY3WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTM4LjY2NyA1OS42NjdDMzguNjY3IDU5LjY2NyAzMi42NjcgNjQgMjQgNjRDMTUuMzMzIDY0IDkuMzMzIDU5LjY2NyA5LjMzMyA1OS42NjdDOS4zMzMgNTkuNjY3IDE1LjMzMyA1NS4zMzMgMjQgNTUuMzMzQzMyLjY2NyA1NS4zMzMgMzguNjY3IDU5LjY2NyAzOC42NjcgNTkuNjY3WiIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iMjQiIGN5PSI1OS42NjciIHI9IjQiIGZpbGw9IiMxMUI0RDQiLz4KPC9zdmc+Cg=="/>
                 
-                track.applyConstraints({
-                    advanced: [{ torch: torchOn }]
-                })
-                .then(() => {
-                    updateStatus(torchOn ? 'Flash turned on' : 'Flash turned off');
-                })
-                .catch(err => {
-                    console.error('Error toggling flash:', err);
-                    updateStatus('Flash control not available');
-                });
-            } else {
-                updateStatus('Flash not supported on this device');
-            }
-        }
+                <p class="text-gray-600 mb-6">Fish Inspector is an AI-powered mobile application designed to help fishermen identify fish species, assess quality, and track their catch. Our mission is to empower fishing communities with technology that improves efficiency and sustainability.</p>
+                
+                <h2 class="text-lg font-semibold text-gray-800 mb-2">Key Features</h2>
+                <ul class="text-gray-600 space-y-2 mb-6">
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-primary mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                        AI-powered fish species identification
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-primary mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                        Freshness scoring and quality assessment
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-primary mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                        Catch history and analytics
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-primary mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                        Fishing hotspot maps
+                    </li>
+                </ul>
+                
+                <h2 class="text-lg font-semibold text-gray-800 mb-2">Contact Us</h2>
+                <p class="text-gray-600 mb-2">Have questions or feedback? Reach out to us:</p>
+                <p class="text-primary">support@fishinspector.com</p>
+                
+                <div class="mt-6 pt-6 border-t border-gray-200 text-center">
+                    <p class="text-gray-500 text-sm">Version 1.0.0</p>
+                    <p class="text-gray-500 text-sm">© 2023 Fish Inspector. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer Navigation -->
+    <div class="footer-nav grid grid-cols-4 gap-2">
+        <button class="footer-nav-button" onclick="showFishermen()">
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-xs">Fishermen</span>
+        </button>
+        <button class="footer-nav-button" onclick="showScanner()">
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-xs">Scan</span>
+        </button>
+        <button class="footer-nav-button" onclick="showDashboard()">
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-xs">Dashboard</span>
+        </button>
+        <button class="footer-nav-button" onclick="showAbout()">
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-xs">About</span>
+        </button>
+    </div>
 
-        function toggleCamera() {
-            if (!stream) {
-                initCamera();
-                return;
-            }
-            
-            // Stop all tracks
-            stream.getTracks().forEach(track => track.stop());
-            
-            // Toggle facingMode
-            currentCameraFacing = currentCameraFacing === 'environment' ? 'user' : 'environment';
-            
-            updateStatus('Switching camera...');
-            
-            // Request new stream with toggled facingMode
-            navigator.mediaDevices.getUserMedia({
-                video: {
-                    facingMode: currentCameraFacing,
-                    width: { ideal: 1280 },
-                    height: { ideal: 720 }
-                }
-            })
-            .then(newStream => {
-                stream = newStream;
-                video.srcObject = stream;
-                updateStatus(`Camera switched to ${currentCameraFacing === 'environment' ? 'back' : 'front'} camera`);
-            })
-            .catch(err => {
-                console.error('Error switching camera:', err);
-                updateStatus('Failed to switch camera');
-                // Try to reinitialize with default camera
-                currentCameraFacing = 'environment';
-                initCamera();
-            });
-        }
-
+    <script src="js/main.js"></script>
+    <script src="js/fishermen.js"></script>
+    <script>
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', function() {
             // Show welcome page first
