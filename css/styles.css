@@ -2,13 +2,7 @@ body {
     min-height: max(884px, 100dvh);
 }
 .scanner-frame {
-    background: linear-gradient(45deg, transparent 10px, #11b4d4 10px, #11b4d4 12px, transparent 12px),
-               linear-gradient(-45deg, transparent 10px, #11b4d4 10px, #11b4d4 12px, transparent 12px),
-               linear-gradient(135deg, transparent 10px, #11b4d4 10px, #11b4d4 12px, transparent 12px),
-               linear-gradient(-135deg, transparent 10px, #11b4d4 10px, #11b4d4 12px, transparent 12px);
-    background-size: 30px 30px;
-    background-position: top left, top right, bottom right, bottom left;
-    background-repeat: no-repeat;
+    /* Blue corner lines removed */
 }
 .page {
     display: none;
