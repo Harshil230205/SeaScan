@@ -7,7 +7,12 @@ function hideAllPages() {
 
 // Show welcome page
 function showWelcome() {
-    // Always show welcome page regardless of login status
+    // Check if fisherman is logged in
+    if (localStorage.getItem('fishermanLoggedIn') === 'true') {
+        showFishermanDashboard();
+        return;
+    }
+    
     hideAllPages();
     document.getElementById('welcomePage').classList.add('active');
 }
