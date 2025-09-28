@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Analytics - AquaTrack Admin</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#11b4d4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        display: ["Public Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        @media (max-width: 640px) {
+            .header-title {
+                font-size: 1.125rem;
+                font-weight: 600;
+            }
+            .nav-item {
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+    <link href="../../css/styles.css" rel="stylesheet"/>
+    <link href="../../css/admin-styles.css" rel="stylesheet"/>
+</head>
+<body class="bg-background-light font-display flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="flex items-center">
+                    <img alt="AquaTrack Logo" class="h-8 w-8" src="../../images/logo.svg"/>
+                    <span class="ml-2 text-lg font-semibold text-gray-900 header-title">AquaTrack</span>
+                </div>
+                
+                <nav class="hidden md:flex space-x-6 ml-6 desktop-nav">
+                    <a class="nav-item text-gray-500 hover:text-primary" href="dashboard.html">Dashboard</a>
+                    <a class="nav-item text-gray-500 hover:text-primary" href="fishermen.html">Fishermen</a>
+                    <a class="nav-item text-primary font-medium" href="analytics.html">Analytics</a>
+                    <a class="nav-item text-gray-500 hover:text-primary" href="about.html">About</a>
+                </nav>
+                
+                <div class="mobile-menu-toggle md:hidden ml-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-gray-600 hidden sm:inline-block">Welcome, <span class="font-medium">System Administrator</span></span>
+                <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-medium">
+                    SA
+                </div>
+                <a class="text-sm text-gray-500 hover:text-gray-700" href="../fishermen/login.html">Logout</a>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <a class="nav-item text-gray-500 hover:text-primary" href="dashboard.html">Dashboard</a>
+            <a class="nav-item text-gray-500 hover:text-primary" href="fishermen.html">Fishermen</a>
+            <a class="nav-item text-primary font-medium" href="analytics.html">Analytics</a>
+            <a class="nav-item text-gray-500 hover:text-primary" href="about.html">About</a>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">Analytics Dashboard</h1>
+                <p class="text-gray-600">Comprehensive data insights and trends</p>
+            </div>
+            
+            <div class="mt-4 md:mt-0 flex space-x-3">
+                <div class="relative">
+                    <select class="pl-4 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none">
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                        <option>Last 90 Days</option>
+                        <option>Last Year</option>
+                        <option>All Time</option>
+                    </select>
+                    <svg class="absolute right-3 top-3 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                </div>
+                
+                <button class="btn-outline flex items-center">
+                    <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                    Export Data
+                </button>
+            </div>
+        </div>
+        
+        <!-- Analytics Overview Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500 text-sm font-medium">Total Catches</h3>
+                    <div class="bg-green-100 text-green-800 rounded-full px-2 py-1 text-xs font-medium">
+                        +12.5%
+                    </div>
+                </div>
+                <div class="text-3xl font-bold text-gray-900">12,847</div>
+                <div class="mt-1 text-sm text-gray-500">156 new this week</div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500 text-sm font-medium">Active Fishermen</h3>
+                    <div class="bg-green-100 text-green-800 rounded-full px-2 py-1 text-xs font-medium">
+                        +5.2%
+                    </div>
+                </div>
+                <div class="text-3xl font-bold text-gray-900">156</div>
+                <div class="mt-1 text-sm text-gray-500">8 new registrations</div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500 text-sm font-medium">Species Identified</h3>
+                    <div class="bg-green-100 text-green-800 rounded-full px-2 py-1 text-xs font-medium">
+                        +3.7%
+                    </div>
+                </div>
+                <div class="text-3xl font-bold text-gray-900">89</div>
+                <div class="mt-1 text-sm text-gray-500">3 new species</div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500 text-sm font-medium">System Accuracy</h3>
+                    <div class="bg-yellow-100 text-yellow-800 rounded-full px-2 py-1 text-xs font-medium">
+                        -0.3%
+                    </div>
+                </div>
+                <div class="text-3xl font-bold text-gray-900">92.5%</div>
+                <div class="mt-1 text-sm text-gray-500">Based on 1,245 validations</div>
+            </div>
+        </div>
+        
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <!-- Catch Trends Chart -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Catch Trends</h3>
+                <div class="h-80">
+                    <canvas id="catchTrendsChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Species Distribution Chart -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Species Distribution</h3>
+                <div class="h-80">
+                    <canvas id="speciesDistributionChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Regional Activity and Accuracy Metrics -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <!-- Regional Activity -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Regional Activity</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-700">North Bay</span>
+                            <span class="text-sm font-medium text-gray-700">3,247</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-primary h-2.5 rounded-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-700">East Coast</span>
+                            <span class="text-sm font-medium text-gray-700">2,891</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-primary h-2.5 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-700">South Harbor</span>
+                            <span class="text-sm font-medium text-gray-700">2,456</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-primary h-2.5 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-700">West Shore</span>
+                            <span class="text-sm font-medium text-gray-700">2,134</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-primary h-2.5 rounded-full" style="width: 55%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-700">Central Waters</span>
+                            <span class="text-sm font-medium text-gray-700">2,119</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-primary h-2.5 rounded-full" style="width: 54%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- System Accuracy Metrics -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">System Accuracy Metrics</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-700">Species Identification</span>
+                            <span class="text-sm font-medium text-gray-700">94.2%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 94.2%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-700">Size Estimation</span>
+                            <span class="text-sm font-medium text-gray-700">91.8%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 91.8%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-700">Weight Prediction</span>
+                            <span class="text-sm font-medium text-gray-700">89.5%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 89.5%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-700">Health Assessment</span>
+                            <span class="text-sm font-medium text-gray-700">87.3%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 87.3%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-700">Maturity Classification</span>
+                            <span class="text-sm font-medium text-gray-700">85.9%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 85.9%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Activity Table -->
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Recent Activity</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fisherman</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Activity</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Species</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Region</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- Activity 1 -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                                        <img alt="Captain Rodriguez" class="h-8 w-8 object-cover" src="../../images/fisherman1.jpg" onerror="this.src='../../images/default-avatar.svg'"/>
+                                    </div>
+                                    <div class="ml-3">
+                                        <div class="text-sm font-medium text-gray-900">Captain Rodriguez</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">Catch Recorded</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">Tuna (4.5kg)</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">North Bay</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-500">Today, 9:45 AM</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Verified
+                                </span>
+                            </td>
+                        </tr>
+                        
+                        <!-- Activity 2 -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                                        <img alt="Fisher Johnson" class="h-8 w-8 object-cover" src="../../images/fisherman2.jpg" onerror="this.src='../../images/default-avatar.svg'"/>
+                                    </div>
+                                    <div class="ml-3">
+                                        <div class="text-sm font-medium text-gray-900">Fisher Johnson</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">Catch Recorded</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">Mackerel (2.1kg)</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">East Coast</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-500">Today, 8:32 AM</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Verified
+                                </span>
+                            </td>
+                        </tr>
+                        
+                        <!-- Activity 3 -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                                        <img alt="Maria Santos" class="h-8 w-8 object-cover" src="../../images/fisherman4.jpg" onerror="this.src='../../images/default-avatar.svg'"/>
+                                    </div>
+                                    <div class="ml-3">
+                                        <div class="text-sm font-medium text-gray-900">Maria Santos</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">Account Registered</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">-</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">West Shore</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-500">Today, 7:15 AM</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                    Pending
+                                </span>
+                            </td>
+                        </tr>
+                        
+                        <!-- Activity 4 -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                                        <img alt="Captain Smith" class="h-8 w-8 object-cover" src="../../images/fisherman3.jpg" onerror="this.src='../../images/default-avatar.svg'"/>
+                                    </div>
+                                    <div class="ml-3">
+                                        <div class="text-sm font-medium text-gray-900">Captain Smith</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">Catch Recorded</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">Sardine (1.8kg)</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">South Harbor</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-500">Yesterday, 4:30 PM</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    Rejected
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // Chart.js initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Catch Trends Chart
+            const catchTrendsCtx = document.getElementById('catchTrendsChart').getContext('2d');
+            const catchTrendsChart = new Chart(catchTrendsCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Catches',
+                        data: [850, 920, 1100, 1250, 1400, 1320, 1450, 1650, 1500, 1420, 1380, 1250],
+                        borderColor: '#11b4d4',
+                        backgroundColor: 'rgba(17, 180, 212, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Species Distribution Chart
+            const speciesDistributionCtx = document.getElementById('speciesDistributionChart').getContext('2d');
+            const speciesDistributionChart = new Chart(speciesDistributionCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Tuna', 'Mackerel', 'Sardine', 'Cod', 'Other'],
+                    datasets: [{
+                        data: [4500, 3200, 2500, 1800, 850],
+                        backgroundColor: [
+                            '#11b4d4',
+                            '#38bec9',
+                            '#74d1db',
+                            '#a0e4ec',
+                            '#d0f4f7'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        });
+    </script>
+    
+    <script src="../../js/main.js"></script>
+    <script src="../../js/admin.js"></script>
+</body>
+</html>

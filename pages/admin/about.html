@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>About - AquaTrack Admin</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#11b4d4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        display: ["Public Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px",
+                    },
+                },
+            },
+        };
+    </script>
+    <link href="../../css/styles.css" rel="stylesheet"/>
+    <link href="../../css/admin-styles.css" rel="stylesheet"/>
+    <link href="../../css/admin-components.css" rel="stylesheet"/>
+</head>
+<body class="bg-background-light font-display flex flex-col min-h-screen">
+    <!-- Header will be loaded via JavaScript -->
+    <div id="admin-header"></div>
+    
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">About AquaTrack</h1>
+                <p class="text-gray-600">System information and documentation</p>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- About the System -->
+            <div class="admin-card lg:col-span-2">
+                <div class="admin-card-header">
+                    <h2 class="admin-card-title">About the System</h2>
+                </div>
+                <div class="prose max-w-none">
+                    <p class="mb-4">
+                        AquaTrack is a comprehensive fishery management system designed to help fishermen track their catches, 
+                        identify fish species, and access valuable data insights. The platform combines modern technology with 
+                        traditional fishing knowledge to create a sustainable fishing ecosystem.
+                    </p>
+                    <p class="mb-4">
+                        Our mission is to empower fishing communities with digital tools that enhance their livelihoods while 
+                        promoting sustainable fishing practices and conservation of marine resources.
+                    </p>
+                    <h3 class="text-lg font-semibold mt-6 mb-3">Key Features</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Automated fish species identification using computer vision</li>
+                        <li>Catch logging and tracking for individual fishermen</li>
+                        <li>Historical data analysis and trends</li>
+                        <li>Fishing hotspot mapping and recommendations</li>
+                        <li>Community knowledge sharing and best practices</li>
+                        <li>Compliance with fishing regulations and quotas</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- System Information -->
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h2 class="admin-card-title">System Information</h2>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Version</h3>
+                        <p class="mt-1">4.0.1</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Last Updated</h3>
+                        <p class="mt-1">June 15, 2023</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Database Status</h3>
+                        <div class="mt-1 flex items-center">
+                            <span class="inline-block h-2 w-2 rounded-full bg-green-400 mr-2"></span>
+                            <span>Connected</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">API Status</h3>
+                        <div class="mt-1 flex items-center">
+                            <span class="inline-block h-2 w-2 rounded-full bg-green-400 mr-2"></span>
+                            <span>Operational</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Storage</h3>
+                        <div class="mt-1">
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-primary h-2.5 rounded-full" style="width: 45%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs mt-1">
+                                <span>45% used</span>
+                                <span>55% free</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Development Team -->
+            <div class="admin-card lg:col-span-3">
+                <div class="admin-card-header">
+                    <h2 class="admin-card-title">Development Team</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center mb-3">
+                            <span class="text-2xl font-bold text-gray-500">AB</span>
+                        </div>
+                        <h3 class="font-medium">Aditya Bhardwaj</h3>
+                        <p class="text-sm text-gray-500">Lead Developer</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center mb-3">
+                            <span class="text-2xl font-bold text-gray-500">SP</span>
+                        </div>
+                        <h3 class="font-medium">Shreya Patel</h3>
+                        <p class="text-sm text-gray-500">UI/UX Designer</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center mb-3">
+                            <span class="text-2xl font-bold text-gray-500">RK</span>
+                        </div>
+                        <h3 class="font-medium">Rahul Kumar</h3>
+                        <p class="text-sm text-gray-500">Backend Engineer</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center mb-3">
+                            <span class="text-2xl font-bold text-gray-500">NS</span>
+                        </div>
+                        <h3 class="font-medium">Neha Singh</h3>
+                        <p class="text-sm text-gray-500">Data Scientist</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer will be loaded via JavaScript -->
+    <div id="admin-footer"></div>
+    
+    <script src="../../js/admin-common.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load header and footer components
+            fetch('../../components/admin-header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('admin-header').innerHTML = data;
+                    // Re-initialize navigation after loading header
+                    setActiveNavigation();
+                });
+                
+            fetch('../../components/admin-footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('admin-footer').innerHTML = data;
+                });
+        });
+    </script>
+</body>
+</html>

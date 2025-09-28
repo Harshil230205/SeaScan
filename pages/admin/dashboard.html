@@ -3,16 +3,35 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Admin Dashboard - AquaTrack</title>
+    <title>Dashboard - AquaTrack Admin</title>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap" rel="stylesheet"/>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#11b4d4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        display: ["Public Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px",
+                    },
+                },
+            },
+        };
+    </script>
     <style>
-        body {
-            font-family: 'Public Sans', sans-serif;
-            background-color: #f6f8f8;
-        }
         .stat-card {
             background-color: white;
             border-radius: 0.5rem;
@@ -29,38 +48,15 @@
             color: #11b4d4;
         }
     </style>
+    <link href="../../css/styles.css" rel="stylesheet"/>
+    <link href="../../css/admin-styles.css" rel="stylesheet"/>
+    <link href="../../css/admin-components.css" rel="stylesheet"/>
 </head>
-<body class="bg-gray-50">
-    <header class="bg-white border-b border-gray-200 px-4 py-3 flex justify-between items-center">
-        <div class="flex items-center">
-            <div class="mr-3">
-                <svg class="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M21.92,11.6C19.9,6.91,16.1,4,12,4S4.1,6.91,2.08,11.6a1,1,0,0,0,0,.8C4.1,17.09,7.9,20,12,20s7.9-2.91,9.92-7.6A1,1,0,0,0,21.92,11.6ZM12,18c-3.17,0-6.17-2.29-7.9-6C5.83,8.29,8.83,6,12,6s6.17,2.29,7.9,6C18.17,15.71,15.17,18,12,18ZM12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Zm0,6a2,2,0,1,1,2-2A2,2,0,0,1,12,14Z"/>
-                </svg>
-            </div>
-            <h1 class="text-xl font-bold">AquaTrack</h1>
-        </div>
-        <div class="hidden md:flex items-center space-x-6">
-            <a href="#" class="text-gray-600 hover:text-blue-500">Dashboard</a>
-            <a href="#" class="text-gray-600 hover:text-blue-500">Scan</a>
-            <a href="#" class="text-gray-600 hover:text-blue-500">Fishermen</a>
-            <a href="#" class="text-gray-600 hover:text-blue-500">Analytics</a>
-            <a href="#" class="text-gray-600 hover:text-blue-500">About</a>
-        </div>
-        <div class="flex items-center space-x-4">
-            <div class="text-sm text-gray-600">
-                <span class="hidden md:inline">Welcome, </span><span class="font-medium">System Administrator</span>
-                <span class="ml-2 px-2 py-1 bg-gray-100 rounded text-xs">admin</span>
-            </div>
-            <a href="#" class="text-gray-600 hover:text-blue-500">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                </svg>
-            </a>
-        </div>
-    </header>
+<body class="bg-background-light font-display flex flex-col min-h-screen">
+    <!-- Header will be loaded via JavaScript -->
+    <div id="admin-header"></div>
 
-    <main class="px-4 py-4">
+    <main class="flex-grow container mx-auto px-4 py-4">
         <div class="flex items-center mb-6">
             <div class="bg-gray-100 p-3 rounded-lg mr-4">
                 <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -103,9 +99,9 @@
         <div class="flex space-x-2 mb-6 overflow-x-auto">
             <button class="nav-tab active">Overview</button>
             <button class="nav-tab">Fishermen</button>
-            <button class="nav-tab">Scan Reviews</button>
+            <!-- <button class="nav-tab">Scan Reviews</button> -->
             <button class="nav-tab">Analytics</button>
-            <button class="nav-tab">Settings</button>
+            <!-- <button class="nav-tab">Settings</button> -->
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -184,6 +180,10 @@
         </div>
     </main>
     
+    <!-- Footer will be loaded via JavaScript -->
+    <div id="admin-footer"></div>
+    
+    <script src="../../js/admin-common.js"></script>
     <script>
         // Tab navigation functionality
         const tabs = document.querySelectorAll('.nav-tab');
@@ -192,6 +192,23 @@
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
             });
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load header and footer components
+            fetch('../../components/admin-header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('admin-header').innerHTML = data;
+                    // Re-initialize navigation after loading header
+                    setActiveNavigation();
+                });
+                
+            fetch('../../components/admin-footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('admin-footer').innerHTML = data;
+                });
         });
     </script>
 </body>

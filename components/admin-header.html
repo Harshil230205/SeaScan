@@ -1,0 +1,40 @@
+<!-- Admin Header Component -->
+<header class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="flex items-center">
+                <img alt="AquaTrack Logo" class="h-8 w-8" src="../../images/logo.svg"/>
+                <span class="ml-2 text-lg font-semibold text-gray-900 header-title">AquaTrack</span>
+            </div>
+            
+            <nav class="hidden md:flex space-x-6 ml-6 desktop-nav">
+                <a class="nav-item text-gray-500 hover:text-primary" href="dashboard.html">Dashboard</a>
+                <a class="nav-item text-gray-500 hover:text-primary" href="fishermen.html">Fishermen</a>
+                <a class="nav-item text-gray-500 hover:text-primary" href="analytics.html">Analytics</a>
+                <a class="nav-item text-gray-500 hover:text-primary" href="about.html">About</a>
+            </nav>
+            
+            <div class="mobile-menu-toggle md:hidden ml-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </div>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+            <span class="text-sm text-gray-600 hidden sm:inline-block">Welcome, <span class="font-medium">System Administrator</span></span>
+            <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-medium">
+                SA
+            </div>
+            <a class="text-sm text-gray-500 hover:text-gray-700" href="../fishermen/login.html">Logout</a>
+        </div>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <a class="nav-item text-gray-500 hover:text-primary" href="dashboard.html">Dashboard</a>
+        <a class="nav-item text-gray-500 hover:text-primary" href="fishermen.html">Fishermen</a>
+        <a class="nav-item text-gray-500 hover:text-primary" href="analytics.html">Analytics</a>
+        <a class="nav-item text-gray-500 hover:text-primary" href="about.html">About</a>
+    </nav>
+</header>
