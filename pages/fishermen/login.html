@@ -68,10 +68,42 @@
                         window.location.href = 'dashboard.html';
                         localStorage.setItem('fishermanLoggedIn', 'true');
                     });
+                    
+                    // Demo login functions
+                    function demoFishermanLogin() {
+                        localStorage.setItem('fishermanLoggedIn', 'true');
+                        localStorage.setItem('fishermanName', 'Demo Fisherman');
+                        window.location.href = 'dashboard.html';
+                    }
+                    
+                    function demoAdminLogin() {
+                        localStorage.setItem('adminLoggedIn', 'true');
+                        localStorage.setItem('adminName', 'Demo Admin');
+                        window.location.href = '../admin/dashboard.html';
+                    }
                 </script>
                 
                 <div class="mt-4 text-center">
                     <p class="text-gray-600 text-sm">Don't have an account? <a class="text-primary font-medium" href="register.html">Register</a></p>
+                </div>
+                
+                <!-- Demo Login Boxes -->
+                <div class="mt-8 border-t pt-6">
+                    <h3 class="text-center text-gray-700 font-medium mb-4">Quick Demo Access</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="demoFishermanLogin()" class="btn-outline flex flex-col items-center justify-center p-4 rounded-lg border-2 border-primary hover:bg-primary/10 transition-colors">
+                            <svg class="w-8 h-8 mb-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                            </svg>
+                            <span class="text-sm font-medium">Demo Fisherman</span>
+                        </button>
+                        <button onclick="demoAdminLogin()" class="btn-outline flex flex-col items-center justify-center p-4 rounded-lg border-2 border-primary hover:bg-primary/10 transition-colors">
+                            <svg class="w-8 h-8 mb-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                            </svg>
+                            <span class="text-sm font-medium">Demo Admin</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
