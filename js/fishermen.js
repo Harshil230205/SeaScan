@@ -34,8 +34,9 @@ function showFishermanDashboard(event) {
     if (event) {
         event.preventDefault();
     }
-    hideAllPages();
-    document.getElementById('fishermanDashboardPage').classList.add('active');
+    
+    // Redirect to the fishermen dashboard page
+    window.location.href = 'dashboard.html';
     
     // Set a flag in localStorage to remember user is logged in
     localStorage.setItem('fishermanLoggedIn', 'true');
