@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#11b4d4',
+                        secondary: '#6b8ab1'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="px-4 py-3 flex items-center justify-between">
+            <h1 class="text-lg font-semibold text-gray-800">Admin Panel</h1>
+            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                <span class="text-white text-sm font-medium">A</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="bg-white border-b">
+        <div class="flex overflow-x-auto">
+            <button class="nav-tab active" data-tab="dashboard">Dashboard</button>
+            <button class="nav-tab" data-tab="fishermen">Fishermen</button>
+            <button class="nav-tab" data-tab="analytics">Analytics</button>
+            <button class="nav-tab" data-tab="about">About</button>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div id="dashboard" class="tab-content active">
+        <div class="p-4">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                    <div class="text-2xl font-bold text-gray-800">156</div>
+                    <div class="text-xs text-gray-500">Total Fishermen</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                    <div class="text-2xl font-bold text-gray-800">89</div>
+                    <div class="text-xs text-gray-500">Active Users</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                    <div class="text-2xl font-bold text-gray-800">12,847</div>
+                    <div class="text-xs text-gray-500">Total Scans</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                    <div class="text-2xl font-bold text-gray-800">92%</div>
+                    <div class="text-xs text-gray-500">Accuracy</div>
+                </div>
+            </div>
+
+            <!-- Species Distribution -->
+            <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
+                <h3 class="font-semibold text-gray-800 mb-3">Species Distribution</h3>
+                <div class="space-y-3">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-gray-600">Tuna</span>
+                            <span class="text-sm text-gray-600">6450</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-primary h-2 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-gray-600">Mackerel</span>
+                            <span class="text-sm text-gray-600">3450</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-primary h-2 rounded-full" style="width: 45%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-gray-600">Cod</span>
+                            <span class="text-sm text-gray-600">2550</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-primary h-2 rounded-full" style="width: 35%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Regional Activity -->
+            <div class="bg-white rounded-lg shadow-sm p-4">
+                <h3 class="font-semibold text-gray-800 mb-3">Regional Activity</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <div>
+                            <div class="font-medium text-sm">North Bay</div>
+                            <div class="text-xs text-gray-500">42 fishermen</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-medium text-sm">3,247</div>
+                            <div class="text-xs text-gray-500">scans</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <div>
+                            <div class="font-medium text-sm">East Coast</div>
+                            <div class="text-xs text-gray-500">38 fishermen</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-medium text-sm">2,891</div>
+                            <div class="text-xs text-gray-500">scans</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <div>
+                            <div class="font-medium text-sm">South Harbor</div>
+                            <div class="text-xs text-gray-500">29 fishermen</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-medium text-sm">2,456</div>
+                            <div class="text-xs text-gray-500">scans</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fishermen Content -->
+    <div id="fishermen" class="tab-content">
+        <div class="p-4">
+            <!-- Search and Add -->
+            <div class="mb-4">
+                <div class="flex gap-2 mb-3">
+                    <input type="text" placeholder="Search fishermen..." 
+                           class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
+                    <button class="bg-primary text-white px-4 py-2 rounded-lg">Add</button>
+                </div>
+                
+                <!-- Filters -->
+                <div class="flex gap-2 overflow-x-auto">
+                    <select class="px-3 py-2 border border-gray-300 rounded-lg">
+                        <option>All Regions</option>
+                        <option>North Bay</option>
+                        <option>East Coast</option>
+                    </select>
+                    <select class="px-3 py-2 border border-gray-300 rounded-lg">
+                        <option>All Status</option>
+                        <option>Active</option>
+                        <option>Inactive</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Fishermen List -->
+            <div class="space-y-3">
+                <div class="bg-white rounded-lg shadow-sm p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-3">
+                                <span class="text-sm font-medium text-gray-600">CR</span>
+                            </div>
+                            <div>
+                                <div class="font-medium text-sm">Captain Rodriguez</div>
+                                <div class="text-xs text-gray-500">+91 98765 43210</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Active</span>
+                            <div class="text-xs text-gray-500 mt-1">156 catches</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-3">
+                                <span class="text-sm font-medium text-gray-600">FJ</span>
+                            </div>
+                            <div>
+                                <div class="font-medium text-sm">Fisher Johnson</div>
+                                <div class="text-xs text-gray-500">+91 87654 32109</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Active</span>
+                            <div class="text-xs text-gray-500 mt-1">89 catches</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-3">
+                                <span class="text-sm font-medium text-gray-600">CS</span>
+                            </div>
+                            <div>
+                                <div class="font-medium text-sm">Captain Smith</div>
+                                <div class="text-xs text-gray-500">+91 76543 21098</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Inactive</span>
+                            <div class="text-xs text-gray-500 mt-1">23 catches</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Content -->
+    <div id="analytics" class="tab-content">
+        <div class="p-4">
+            <!-- Analytics Overview -->
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                    <div class="text-xl font-bold text-gray-800">12,847</div>
+                    <div class="text-xs text-gray-500">Total Catches</div>
+                    <div class="text-xs text-green-600">+12.5%</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                    <div class="text-xl font-bold text-gray-800">156</div>
+                    <div class="text-xs text-gray-500">Active Fishermen</div>
+                    <div class="text-xs text-green-600">+5.2%</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                    <div class="text-xl font-bold text-gray-800">89</div>
+                    <div class="text-xs text-gray-500">Species Identified</div>
+                    <div class="text-xs text-green-600">+3.7%</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                    <div class="text-xl font-bold text-gray-800">92.5%</div>
+                    <div class="text-xs text-gray-500">System Accuracy</div>
+                    <div class="text-xs text-yellow-600">-0.3%</div>
+                </div>
+            </div>
+
+            <!-- System Accuracy Metrics -->
+            <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
+                <h3 class="font-semibold text-gray-800 mb-3">System Accuracy Metrics</h3>
+                <div class="space-y-3">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-gray-600">Species ID</span>
+                            <span class="text-sm text-gray-600">94.2%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 94.2%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-gray-600">Size Estimation</span>
+                            <span class="text-sm text-gray-600">91.8%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 91.8%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-gray-600">Weight Prediction</span>
+                            <span class="text-sm text-gray-600">89.5%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 89.5%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white rounded-lg shadow-sm p-4">
+                <h3 class="font-semibold text-gray-800 mb-3">Recent Activity</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between py-2 border-b border-gray-100">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mr-3">
+                                <span class="text-xs font-medium text-gray-600">CR</span>
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium">Captain Rodriguez</div>
+                                <div class="text-xs text-gray-500">Tuna (4.5kg)</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Verified</span>
+                            <div class="text-xs text-gray-500 mt-1">9:45 AM</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between py-2 border-b border-gray-100">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mr-3">
+                                <span class="text-xs font-medium text-gray-600">FJ</span>
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium">Fisher Johnson</div>
+                                <div class="text-xs text-gray-500">Mackerel (2.1kg)</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Verified</span>
+                            <div class="text-xs text-gray-500 mt-1">8:32 AM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Content -->
+    <div id="about" class="tab-content">
+        <div class="p-4">
+            <!-- System Info -->
+            <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
+                <h3 class="font-semibold text-gray-800 mb-3">System Information</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600">Version</span>
+                        <span class="text-sm font-medium">4.0.1</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600">Last Updated</span>
+                        <span class="text-sm font-medium">June 15, 2025</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600">Database Status</span>
+                        <div class="flex items-center">
+                            <span class="inline-block h-2 w-2 rounded-full bg-green-400 mr-2"></span>
+                            <span class="text-sm font-medium">Connected</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600">API Status</span>
+                        <div class="flex items-center">
+                            <span class="inline-block h-2 w-2 rounded-full bg-green-400 mr-2"></span>
+                            <span class="text-sm font-medium">Operational</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About System -->
+            <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
+                <h3 class="font-semibold text-gray-800 mb-3">About SeaScan</h3>
+                <p class="text-sm text-gray-600 mb-3">
+                    SeaScan is a comprehensive fishery management system designed to help fishermen track their catches, 
+                    identify fish species, and access valuable data insights.
+                </p>
+                <h4 class="font-medium text-gray-800 mb-2">Key Features</h4>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• Automated fish species identification</li>
+                    <li>• Catch logging and tracking</li>
+                    <li>• Historical data analysis</li>
+                    <li>• Community knowledge sharing</li>
+                </ul>
+            </div>
+
+            <!-- Development Team -->
+            <div class="bg-white rounded-lg shadow-sm p-4">
+                <h3 class="font-semibold text-gray-800 mb-3">Development Team</h3>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <span class="text-sm font-medium text-gray-600">AB</span>
+                        </div>
+                        <div class="text-sm font-medium">Aditya Bhardwaj</div>
+                        <div class="text-xs text-gray-500">Lead Developer</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <span class="text-sm font-medium text-gray-600">SP</span>
+                        </div>
+                        <div class="text-sm font-medium">Shreya Patel</div>
+                        <div class="text-xs text-gray-500">UI/UX Designer</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <span class="text-sm font-medium text-gray-600">RK</span>
+                        </div>
+                        <div class="text-sm font-medium">Rahul Kumar</div>
+                        <div class="text-xs text-gray-500">Backend Engineer</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <span class="text-sm font-medium text-gray-600">NS</span>
+                        </div>
+                        <div class="text-sm font-medium">Neha Singh</div>
+                        <div class="text-xs text-gray-500">Data Scientist</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .nav-tab {
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .nav-tab.active {
+            color: #11b4d4;
+            border-bottom-color: #11b4d4;
+        }
+        .tab-content {
+            display: none;
+            min-height: calc(100vh - 120px);
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+
+    <script>
+        // Tab functionality
+        const tabs = document.querySelectorAll('.nav-tab');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+                
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
