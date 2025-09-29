@@ -48,7 +48,7 @@ function showFishermanDashboard(event) {
     }
     
     // Redirect to the fishermen dashboard page
-    window.location.href = 'dashboard.html';
+    window.location.href = './pages/fishermen/dashboard.html';
     
     // Set a flag in localStorage to remember user is logged in
     localStorage.setItem('fishermanLoggedIn', 'true');
