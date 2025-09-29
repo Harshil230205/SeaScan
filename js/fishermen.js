@@ -61,3 +61,6 @@ function logoutFisherman() {
     // Redirect to login page
     showFishermanLogin();
 }
+function goToDashBoard() {
+ window.location.href = './dashboard.html';
+}
