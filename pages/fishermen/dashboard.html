@@ -100,7 +100,12 @@
 </head>
 <body class="bg-white font-display flex flex-col min-h-screen">
     <script>
-                    
+                    function handleLogout(){
+                        // Clear session data
+                        localStorage.removeItem('fishermanSession');
+                        // Redirect to login page
+                        window.location.href = '../index.html';
+                    }
                     
                     function redirectToProfile() {
                         window.location.href = './profile.html';
